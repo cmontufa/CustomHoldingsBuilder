@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Custom Holdings Builder</string>
+    <string name="welcome_text">Creates and Edits Custom Holdings Paths and Groups for OCLC Interlibrary Loan Transactions.</string>
+    <string name="create_new_button">Create New Holdings</string>
+    <string name="continue_button">Continue With Previous Holdings</string>
+    <string name="get_location_text">First we need to get your location</string>
+    <string name="location_label_text">Use your device to determine your location</string>
+    <string name="location_text">LOCATION DISABLED</string>
+    <string name="spinner_label_text">Or, Select a location from the list below</string>
+    <string name="begin_button">Begin</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_new_dialog_message">Are you sure you want to create new holdings. Previous holdings will be lost.</string>
+    <string name="create_new_dialog_title">Previous Custom Holdings Exist</string>
+    <string name="continue_dialog_message">Do you wish to create new holdings?</string>
+    <string name="continue_dialog_title">No Custom Holdings Exists</string>
+    <string name="get_location_activity">Get Location Activity</string>
+</resources>
