@@ -1,5 +1,10 @@
 package edu.grzegorzewski.customholdingsbuilder;
-
+/* ITMD-555 Android App Development
+ * Dennis Grzegorzewski
+ * Christopher Montufar
+ * Final Project
+ * Due: 12/05/2016
+ */
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
