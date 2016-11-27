@@ -1,3 +1,8 @@
+<!-- ITMD-555 Android App Development -->
+<!-- Dennis Grzegorzewski -->
+<!-- Christopher Montufar -->
+<!-- Final Project -->
+<!-- Due: 12/05/2016 -->
 <resources>
     <string name="app_name">Custom Holdings Builder</string>
     <string name="welcome_text">Creates and Edits Custom Holdings Paths and Groups for OCLC Interlibrary Loan Transactions.</string>
