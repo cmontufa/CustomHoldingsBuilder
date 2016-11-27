@@ -23,7 +23,10 @@ class ZoneList {
     /*
      * Constructors.
      */
-    public ZoneList(ArrayList<Zone> zones) {
-        this.zones = zones;
+    public ZoneList(String state) {
+        Zone zone = new Zone();
+        zone.addState(state);
+        this.zones.add(0,zone);
+        zone.clearStates();
     }
 }

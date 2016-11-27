@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * remove a state from the list,
  * set the entire list,
  * return the entire list,
+ * clear the entire list,
  * and return a string representation of the Zone object.
  *
  * @author Dennis Grzegorzewski.
@@ -37,6 +38,7 @@ class Zone {
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
@@ -52,6 +54,7 @@ class Zone {
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
@@ -73,6 +76,7 @@ class Zone {
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
@@ -90,6 +94,7 @@ class Zone {
      * @see #addState(String) Adds a state to the states ArrayList, and returns true if the list has been changed.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
@@ -105,6 +110,7 @@ class Zone {
      * @see #addState(String) Adds a state to the states ArrayList, and returns true if the list has been changed.
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
@@ -120,12 +126,28 @@ class Zone {
      * @see #addState(String) Adds a state to the states ArrayList, and returns true if the list has been changed.
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @see #toString() Returns a string representation of the Zone object.
      * @since 1.0
      */
     void setStates(ArrayList<String> states) {
         this.states = states;
     } // end method setStates.
+
+    /**
+     * Clears the states ArrayList of U.S. state or territory abbreviations.
+     *
+     * @see #states A list of U.S. state or territory abbreviations.
+     * @see #addState(String) Adds a state to the states ArrayList, and returns true if the list has been changed.
+     * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
+     * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
+     * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
+     * @see #toString() Returns a string representation of the Zone object.
+     * @since 1.0
+     */
+    void clearStates() {
+        this.states.clear();
+    } // end method clearStates.
 
     /**
      * Returns a string representation of the Zone object.
@@ -136,6 +158,7 @@ class Zone {
      * @see #deleteState(String) Deletes a state from the states ArrayList, and returns true if the list contained the specified element.
      * @see #getStates() Returns the states ArrayList of U.S. state or territory abbreviations.
      * @see #setStates(ArrayList) Sets the states ArrayList of U.S. state or territory abbreviations.
+     * @see #clearStates() Clears the states ArrayList of U.S. state or territory abbreviations.
      * @since 1.0
      */
     @Override
