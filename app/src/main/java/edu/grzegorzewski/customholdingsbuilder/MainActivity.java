@@ -5,13 +5,19 @@ package edu.grzegorzewski.customholdingsbuilder;
  * Final Project
  * Due: 12/05/2016
  */
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 
 /**
  * TODO Class description.
@@ -21,6 +27,17 @@ import android.widget.Button;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static MainActivity mainActivityInstance;
+    public static MainActivity getInstance() {
+        return mainActivityInstance;
+    }
+
+    private OclcService oclcService;
+    private Boolean oclcServiceBounded = false;
+
+    //Example of the URL for search params of state:MA AND state:OH AND supplier:Y
+    private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
+
     /**
      * Executes when activity starts.
      *
@@ -29,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainActivityInstance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -74,6 +92,32 @@ public class MainActivity extends AppCompatActivity {
         }); // end button.setOnClickListener
 
     } // end method setupCreateNewButton.
+
+    /**
+     * Executes when activity stops.
+     *
+     * @since 1.0
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(oclcServiceBounded) {
+            unbindService(oclcServiceConnection);
+            oclcServiceBounded = false;
+        }
+    };
+
+    /**
+     * Executes when activity starts.
+     *
+     * @since 1.0
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindService(new Intent(this, OclcService.class), oclcServiceConnection, BIND_AUTO_CREATE);
+        Log.d("onStart()", "Service Started");
+    }
 
     /**
      * TODO Method description.
@@ -212,5 +256,22 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
     } // end method createNoPreviousHoldingsDialog.
+
+
+    ServiceConnection oclcServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            oclcServiceBounded = true;
+            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
+            oclcService = mLocalBinder.getServerInstance();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            oclcServiceBounded = false;
+            oclcService = null;
+        }
+    };
 
 } // end class MainActivity.
