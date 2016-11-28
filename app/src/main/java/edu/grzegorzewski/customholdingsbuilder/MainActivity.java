@@ -21,6 +21,14 @@ import android.widget.Button;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static MainActivity mainActivityInstance;
+    public static MainActivity getInstance() {
+        return mainActivityInstance;
+    }
+
+    //Example of the URL for search params of state:MA AND state:OH AND supplier:Y
+    private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
+
     /**
      * Executes when activity starts.
      *
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainActivityInstance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
