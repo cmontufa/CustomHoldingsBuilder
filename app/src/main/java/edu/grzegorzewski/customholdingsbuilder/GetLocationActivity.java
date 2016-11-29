@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,24 +31,51 @@ import java.util.List;
  */
 public class GetLocationActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-    // the state of origin for canculations
-    //final TextView state = (TextView) findViewById(R.id.textView_auto_this);
-    //String currentState = (String) state.getText();
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_location);
 
         //Log.d("currentState = ", currentState);
-        //setupAutoLocationState();
+        setupAutoLocationState();
         setupStateSpinner();
         setupStartButton();
 
     } // end method onCreate
 
-    private void setupAutoLocationState() {
+    /**
+     * Called when the activity is becoming visible to the user.
+     * Called by onCreate method.
+     *
+     * @since 1.0
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Auto-generated method stub.
+    } //end method onStart.
 
+    /**
+     * Called when the activity is no longer visible to the user.
+     *
+     * @since 1.0
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Auto-generated method stub.
+    } // end method onStop.
+
+    /**
+     * TODO Method description.
+     *
+     * @since 1.0
+     */
+    private void setupAutoLocationState() {
 
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -57,21 +86,24 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
             // Called when the location has changed.
             public void onLocationChanged(Location location) {
-                //
-                ThisState thisState = new ThisState() {
-                };
-                //
-                // try {
-                // get the state from the location address.
-                //currentState = (String) thisState.getThisState(location.getLatitude(), location.getLongitude());
-                //} // end try
-                //
-                //catch (IOException e) {
-                //    e.printStackTrace();
-                //} // end catch
 
-                // change textview
-                //state.setText(currentState);
+                // the state of origin for calculations
+                TextView thisLocation = (TextView) findViewById(R.id.textView_this_state);
+                String currentState = (String) thisLocation.getText();
+
+                // attempt to get the location state string
+                String thisState = currentState; // initialize with the currentState text
+                try {
+                    thisState = (new ThisState().getThisState(location.getLatitude(), location.getLongitude()));
+                }  //end try.
+                catch (IOException e) {
+                    e.printStackTrace();
+                } //end catch.
+
+                // change TextView
+                thisLocation.setText(thisState);
+                currentState = thisState; // update changes to currentState
+
             } // end method onLocationChanged
 
             /**
@@ -131,6 +163,12 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
     } // end method setupAutoLocationState
 
+    /**
+     * TODO Method description.
+     *
+     * @see #setStateList() Creates an ArrayList of Strings stateList containing state abbreviation data.
+     * @since 1.0
+     */
     private void setupStateSpinner() {
 
         // Create a spinner object.
@@ -161,6 +199,21 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
     } // end method setupStateSpinner
 
+    /**
+     * TODO Method description.
+     *
+     * @since 1.0
+     */
+    private void setupStartButton() {
+        // TODO method stub.
+    } // end method setupStartButton
+
+    /**
+     * Creates an ArrayList of Strings stateList containing state abbreviation data.
+     *
+     * @return - stateList: A List of Strings containing state abbreviations.
+     * @since 1.0
+     */
     private List<String> setStateList() {
 
         // Declare an Array of Strings and initialize with state abbreviation data.
@@ -181,9 +234,6 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
     } // end method setStateList
 
-    private void setupStartButton() {
-    } // end method setupStartButton
-
     /**
      * Callback method to be invoked when an item in this view has been selected.
      * This callback is invoked only when the newly selected position is different
@@ -199,10 +249,12 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //
+
+        // get the text of the item at selected position.
         String item = parent.getItemAtPosition(position).toString();
-        //display location data toast
+        // display item text in a toast
         Toast.makeText(GetLocationActivity.this, item + ": Selected", Toast.LENGTH_LONG).show();
+
     } // end method onItemSelected.
 
     /**
@@ -217,28 +269,5 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
         // Auto-generated method stub.
     } //end method onNothingSelected.
-
-    /**
-     * Called when the activity is becoming visible to the user.
-     * Called by onCreate method.
-     *
-     * @since 1.0
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Auto-generated method stub.
-    } //end method onStart.
-
-    /**
-     * Called when the activity is no longer visible to the user.
-     *
-     * @since 1.0
-     */
-    @Override
-    public void onStop() {
-        super.onStop();
-        // Auto-generated method stub.
-    } // end method onStop.
 
 } // end class GetLocationActivity.

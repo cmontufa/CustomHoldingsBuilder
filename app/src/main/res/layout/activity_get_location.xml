@@ -45,17 +45,16 @@
         android:text="@string/location_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_location_label"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:id="@+id/textView_auto_this"
-        android:textSize="24sp" />
+        android:id="@+id/textView_this_state"
+        android:textSize="24sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="@string/spinner_label_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_auto_this"
+        android:layout_below="@+id/textView_this_state"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:id="@+id/textView_spinner_label"
