@@ -33,6 +33,8 @@ import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity mainActivityInstance;
+    private boolean isServiceBound = false;
+
     public static MainActivity getInstance() {
         return mainActivityInstance;
     }
@@ -89,9 +91,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bindService(new Intent(this, OclcService.class), oclcServiceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isServiceBound = getApplicationContext().bindService( new Intent(getApplicationContext(),
+                                                                         OclcService.class),
+                                                              oclcServiceConnection,
+                                                              Context.BIND_AUTO_CREATE );
         Log.d("onStart()", "Service Started");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isServiceBound) {
+            getApplicationContext().unbindService(oclcServiceConnection);
+        }
+    }
+// MainActivity has leaked ServiceConnection error
+// Internet solution
+// This is usually a result of a Service being bound when an Activity is dismissed.
+// I've solved it before by keeping a boolean value in the Activity that keeps track of whether or not the Service is bound.
+// Then in onDestroy check if the Service is still bound with the boolean instance variable and unbind the Service if it is still bound.
+// I also do my initial binding of the Service in onResume while checking to make sure it isn't already bound with my boolean instance variable just in case
+// boolean isServiceBound = false;
+// isServiceBound = getApplicationContext().bindService( new Intent(getApplicationContext(), OclcService.class), oclcServiceConnection, Context.BIND_AUTO_CREATE );
+// if (isServiceBound)
+// getApplicationContext().unbindService(oclcServiceConnection);
 
     /**
      * Sets up the Create New Button
