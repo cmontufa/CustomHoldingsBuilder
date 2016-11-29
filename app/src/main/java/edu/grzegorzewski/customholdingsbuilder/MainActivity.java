@@ -6,9 +6,12 @@ package edu.grzegorzewski.customholdingsbuilder;
  * Due: 12/05/2016
  */
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.File;
 
 import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 
@@ -50,48 +55,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up action for Start Button.
+
+        // Comment this out. creates the the file for testing.
+        // Comment this out. deletes the database for testing.
+        //this.deleteDatabase("CustomHoldingsDB");
+
+        // Set up action for Create New Button.
         setupCreateNewButton();
         // Set up action for Continue Button.
         setupContinueButton();
 
-    } // end method onCreate
-
-    /**
-     * TODO Method description.
-     *
-     * @since 1.0
-     */
-    private void setupCreateNewButton() {
-
-        // Get button resource.
-        Button button = (Button) findViewById(R.id.button_create_new);
-        // Create button listener.
-        button.setOnClickListener( new View.OnClickListener() {
-
-            /**
-             * Execute on create new button click.
-             *
-             * @param view - the view to set OnClickListener
-             * @since 1.0
-             */
-            @Override
-            public void onClick(View view) {
-
-                // TODO If Previous Holdings exist, launch a warning dialog
-                // right now always launch dialog.
-
-                // Create a dialog.
-                createPreviousHoldingsDialog();
-
-                // TODO else continue to create new holdings.
-                // startGetLocationActivity();
-
-            } // end method onClick.
-
-        }); // end button.setOnClickListener
-
-    } // end method setupCreateNewButton.
+    } // end method onCreate.
 
     /**
      * Executes when activity stops.
@@ -120,7 +94,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO Method description.
+     * Sets up the Create New Button
+     *
+     * @since 1.0
+     */
+    private void setupCreateNewButton() {
+
+        // Get button resource.
+        Button button = (Button) findViewById(R.id.button_create_new);
+        // Create button listener.
+        button.setOnClickListener( new View.OnClickListener() {
+
+            /**
+             * Execute on Create New button click.
+             *
+             * @param view - the view to set OnClickListener
+             * @since 1.0
+             */
+            @Override
+            public void onClick(View view) {
+
+            // If Previous Holdings exist, launch a warning dialog.
+            File dbFile = new File("CustomHoldingsDB");
+            if (dbFile.exists()) {
+                Log.d("setupCreateNewButton", "database exists.");
+                // Create a dialog.
+                createPreviousHoldingsDialog();
+            } //end if.
+            else {
+                Log.d("setupCreateNewButton", "database does not exist.");
+                // TODO else continue to create new holdings.
+                startGetLocationActivity();
+            } //end else.
+
+            } // end method onClick.
+
+        }); // end button.setOnClickListener
+
+    } // end method setupCreateNewButton.
+
+    /**
+     * Sets up the Continue Button.
      *
      * @since 1.0
      */
@@ -140,14 +154,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // TODO If No Previous Holdings exist, launch a warning dialog
-                // right now always launch dialog.
-
-                // Create a dialog.
-                createNoPreviousHoldingsDialog();
-
-                // TODO else continue to previous holdings.
-                // startGetHoldingsActivity();
+                // If No Previous Holdings exist, launch a warning dialog.
+                File dbFile = new File("CustomHoldingsDB");
+                if ( !dbFile.exists()) {
+                    Log.d("setupCreateNewButton", "database does not exist.");
+                    // Create a dialog.
+                    createNoPreviousHoldingsDialog();
+                } //end if.
+                else {
+                    Log.d("setupCreateNewButton", "database exists.");
+                    // TODO else continue to previous holdings.
+                    // startGetHoldingsActivity();
+                } //end else.
 
             } // end method onClick.
 
@@ -184,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     } // end method startGetHoldingsActivity.
 
     /**
-     * TODO Method description.
+     * Create warning dialog about overwriting previous custom holdings.
      *
      * @since 1.0
      */
@@ -221,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     } // end method createPreviousHoldingsDialog.
 
     /**
-     * TODO Method description.
+     * Create a warning dialog for creating new custom holdings.
      *
      * @since 1.0
      */
@@ -273,5 +291,9 @@ public class MainActivity extends AppCompatActivity {
             oclcService = null;
         }
     };
+
+
+
+
 
 } // end class MainActivity.
