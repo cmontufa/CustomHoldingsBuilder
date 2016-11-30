@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains a list of key/value pairs of destination state and postal zone
+ * Contains a list of key/value pairs of destination states and postal zones
  * for the state supplied in the parameter with the default being Illinois.
  *
  * @author Dennis Grzegorzewski.
@@ -21,16 +21,18 @@ import java.util.List;
 class StateZoneList {
 
     /*
-     * TODO
+     * Declare and initialize instance variables and objects.
      */
     private List<Pair> stateZones = new ArrayList<>();
 
     /*
-     * TODO
+     * Constructors.
      */
     /**
-     * TODO Constructor description.
+     * No-Arg constructor.
      *
+     * @see #stateZones A List of Pair objects containing key/value pairs of state or territory abbreviation strings and zone integers for Illinois.
+     * @since 1.0
      */
     public StateZoneList() {
 
@@ -39,9 +41,10 @@ class StateZoneList {
     } // end No-Arg constructor.
 
     /**
-     * TODO Constructor description.
+     * Full-arg constructor.
      *
-     * @param state
+     * @param state String of a state or territory abbreviation.
+     * @see #stateZones A List of Pair objects containing key/value pairs of state or territory abbreviation strings and zone integers for parameter state.
      */
     public StateZoneList(String state) {
 
@@ -208,11 +211,16 @@ class StateZoneList {
                 break;
         } // end switch
 
-    } // end Full constructor.
+    } // end Full-arg constructor.
 
+    /*
+     * Methods.
+     */
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for AK.
      *
-     * @return
+     * @return A List of Pair objects containing key/value pairs of state or territory abbreviation strings and zone integers for AK.
+     * @since 1.0
      */
     private List<Pair> createAKZoneTable() {
 
@@ -276,8 +284,10 @@ class StateZoneList {
     } // end method createAKZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for AL.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for AL.
+     * @since 1.0
      */
     private List<Pair> createALZoneTable() {
 
@@ -341,8 +351,10 @@ class StateZoneList {
     } // end method createALZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for AR.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for AR.
+     * @since 1.0
      */
     private List<Pair> createARZoneTable() {
 
@@ -406,8 +418,10 @@ class StateZoneList {
     } // end method createARZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for AZ.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for AZ.
+     * @since 1.0
      */
     private List<Pair> createAZZoneTable() {
 
@@ -471,8 +485,10 @@ class StateZoneList {
     } // end method createAZZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for CA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for CA.
+     * @since 1.0
      */
     private List<Pair> createCAZoneTable() {
 
@@ -536,8 +552,10 @@ class StateZoneList {
     } // end method createCAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for CO.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for CO.
+     * @since 1.0
      */
     private List<Pair> createCOZoneTable() {
 
@@ -601,8 +619,10 @@ class StateZoneList {
     } // end method createCOZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for CT.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for CT.
+     * @since 1.0
      */
     private List<Pair> createCTZoneTable() {
 
@@ -666,8 +686,10 @@ class StateZoneList {
     } // end method createCTZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for DC.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for DC.
+     * @since 1.0
      */
     private List<Pair> createDCZoneTable() {
 
@@ -731,8 +753,10 @@ class StateZoneList {
     } // end method createDCZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for DE.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for DE.
+     * @since 1.0
      */
     private List<Pair> createDEZoneTable() {
 
@@ -796,8 +820,10 @@ class StateZoneList {
     } // end method createDEZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for FL.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for FL.
+     * @since 1.0
      */
     private List<Pair> createFLZoneTable() {
 
@@ -861,8 +887,10 @@ class StateZoneList {
     } // end method createFLZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for GA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for GA.
+     * @since 1.0
      */
     private List<Pair> createGAZoneTable() {
 
@@ -926,8 +954,10 @@ class StateZoneList {
     } // end method createGAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for HI.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for HI.
+     * @since 1.0
      */
     private List<Pair> createHIZoneTable() {
 
@@ -991,8 +1021,10 @@ class StateZoneList {
     } // end method createHIZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for IA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for IA.
+     * @since 1.0
      */
     private List<Pair> createIAZoneTable() {
 
@@ -1056,8 +1088,10 @@ class StateZoneList {
     } // end method createIAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for ID.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for ID.
+     * @since 1.0
      */
     private List<Pair> createIDZoneTable() {
 
@@ -1121,8 +1155,10 @@ class StateZoneList {
     } // end method createIDZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for IL.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for IL.
+     * @since 1.0
      */
     private List<Pair> createILZoneTable() {
 
@@ -1186,8 +1222,10 @@ class StateZoneList {
     } // end method createILZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for IN.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for IN.
+     * @since 1.0
      */
     private List<Pair> createINZoneTable() {
 
@@ -1251,8 +1289,10 @@ class StateZoneList {
     } // end method createINZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for KS.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for KS.
+     * @since 1.0
      */
     private List<Pair> createKSZoneTable() {
 
@@ -1316,8 +1356,10 @@ class StateZoneList {
     } // end method createKSZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for KY.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for KY.
+     * @since 1.0
      */
     private List<Pair> createKYZoneTable() {
 
@@ -1381,8 +1423,10 @@ class StateZoneList {
     } // end method createKYZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for LA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for LA.
+     * @since 1.0
      */
     private List<Pair> createLAZoneTable() {
 
@@ -1446,8 +1490,10 @@ class StateZoneList {
     } // end method createLAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MA.
+     * @since 1.0
      */
     private List<Pair> createMAZoneTable() {
 
@@ -1511,8 +1557,10 @@ class StateZoneList {
     } // end method createMAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MD.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MD.
+     * @since 1.0
      */
     private List<Pair> createMDZoneTable() {
 
@@ -1576,8 +1624,10 @@ class StateZoneList {
     } // end method createMDZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for ME.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for ME.
+     * @since 1.0
      */
     private List<Pair> createMEZoneTable() {
 
@@ -1641,8 +1691,10 @@ class StateZoneList {
     } // end method createMEZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MI.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MI.
+     * @since 1.0
      */
     private List<Pair> createMIZoneTable() {
 
@@ -1706,8 +1758,10 @@ class StateZoneList {
     } // end method createMIZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MN.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MN.
+     * @since 1.0
      */
     private List<Pair> createMNZoneTable() {
 
@@ -1771,8 +1825,10 @@ class StateZoneList {
     } // end method createMNZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MO.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MO.
+     * @since 1.0
      */
     private List<Pair> createMOZoneTable() {
 
@@ -1836,8 +1892,10 @@ class StateZoneList {
     } // end method createMOZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MS.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MS.
+     * @since 1.0
      */
     private List<Pair> createMSZoneTable() {
 
@@ -1901,8 +1959,10 @@ class StateZoneList {
     } // end method createMSZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for MT.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for MT.
+     * @since 1.0
      */
     private List<Pair> createMTZoneTable() {
 
@@ -1966,8 +2026,10 @@ class StateZoneList {
     } // end method createMTZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NC.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NC.
+     * @since 1.0
      */
     private List<Pair> createNCZoneTable() {
 
@@ -2031,8 +2093,10 @@ class StateZoneList {
     } // end method createNCZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for ND.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for ND.
+     * @since 1.0
      */
     private List<Pair> createNDZoneTable() {
 
@@ -2096,8 +2160,10 @@ class StateZoneList {
     } // end method createNDZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NE.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NE.
+     * @since 1.0
      */
     private List<Pair> createNEZoneTable() {
 
@@ -2161,8 +2227,10 @@ class StateZoneList {
     } // end method createNEZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NH.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NH.
+     * @since 1.0
      */
     private List<Pair> createNHZoneTable() {
 
@@ -2226,8 +2294,10 @@ class StateZoneList {
     } // end method createNHZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NJ.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NJ.
+     * @since 1.0
      */
     private List<Pair> createNJZoneTable() {
 
@@ -2291,8 +2361,10 @@ class StateZoneList {
     } // end method createNJZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NM.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NM.
+     * @since 1.0
      */
     private List<Pair> createNMZoneTable() {
 
@@ -2356,8 +2428,10 @@ class StateZoneList {
     } // end method createNMZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NV.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NV.
+     * @since 1.0
      */
     private List<Pair> createNVZoneTable() {
 
@@ -2421,8 +2495,10 @@ class StateZoneList {
     } // end method createNVZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for NY.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for NY.
+     * @since 1.0
      */
     private List<Pair> createNYZoneTable() {
 
@@ -2486,8 +2562,10 @@ class StateZoneList {
     } // end method createNYZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for OH.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for OH.
+     * @since 1.0
      */
     private List<Pair> createOHZoneTable() {
 
@@ -2551,8 +2629,10 @@ class StateZoneList {
     } // end method createOHZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for OK.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for OK.
+     * @since 1.0
      */
     private List<Pair> createOKZoneTable() {
 
@@ -2616,8 +2696,10 @@ class StateZoneList {
     } // end method createOKZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for OR.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for OR.
+     * @since 1.0
      */
     private List<Pair> createORZoneTable() {
 
@@ -2681,8 +2763,10 @@ class StateZoneList {
     } // end method createORZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for PA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for PA.
+     * @since 1.0
      */
     private List<Pair> createPAZoneTable() {
 
@@ -2746,8 +2830,10 @@ class StateZoneList {
     } // end method createPAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for PR.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for PR.
+     * @since 1.0
      */
     private List<Pair> createPRZoneTable() {
 
@@ -2811,8 +2897,10 @@ class StateZoneList {
     } // end method createPRZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for RI.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for RI.
+     * @since 1.0
      */
     private List<Pair> createRIZoneTable() {
 
@@ -2876,8 +2964,10 @@ class StateZoneList {
     } // end method createRIZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for SC.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for SC.
+     * @since 1.0
      */
     private List<Pair> createSCZoneTable() {
 
@@ -2941,8 +3031,10 @@ class StateZoneList {
     } // end method createSCZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for SD.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for SD.
+     * @since 1.0
      */
     private List<Pair> createSDZoneTable() {
 
@@ -3006,8 +3098,10 @@ class StateZoneList {
     } // end method createSDZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for TN.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for TN.
+     * @since 1.0
      */
     private List<Pair> createTNZoneTable() {
 
@@ -3071,8 +3165,10 @@ class StateZoneList {
     } // end method createTNZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for TX.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for TX.
+     * @since 1.0
      */
     private List<Pair> createTXZoneTable() {
 
@@ -3136,8 +3232,10 @@ class StateZoneList {
     } // end method createTXZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for UT.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for UT.
+     * @since 1.0
      */
     private List<Pair> createUTZoneTable() {
 
@@ -3201,8 +3299,10 @@ class StateZoneList {
     } // end method createUTZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for VA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for VA.
+     * @since 1.0
      */
     private List<Pair> createVAZoneTable() {
 
@@ -3266,8 +3366,10 @@ class StateZoneList {
     } // end method createVAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for VT.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for VT.
+     * @since 1.0
      */
     private List<Pair> createVTZoneTable() {
 
@@ -3331,8 +3433,10 @@ class StateZoneList {
     } // end method createVTZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for WA.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for WA.
+     * @since 1.0
      */
     private List<Pair> createWAZoneTable() {
 
@@ -3396,8 +3500,10 @@ class StateZoneList {
     } // end method createWAZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for WI.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for WI.
+     * @since 1.0
      */
     private List<Pair> createWIZoneTable() {
 
@@ -3461,8 +3567,10 @@ class StateZoneList {
     } // end method createWIZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for WV.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for WV.
+     * @since 1.0
      */
     private List<Pair> createWVZoneTable() {
 
@@ -3526,8 +3634,10 @@ class StateZoneList {
     } // end method createWVZoneTable.
 
     /**
+     * Initializes a List of Pair objects with key/value pairs of state or territory abbreviation strings and zone integers for WY.
      *
-     * @return
+     * @return List of Pair objects containing key/value pairs of state or territory abbreviation string and zone integer for WY.
+     * @since 1.0
      */
     private List<Pair> createWYZoneTable() {
 
