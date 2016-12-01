@@ -96,12 +96,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         // Unbind oclcServiceConnection service if bounded and unset flag.
-        if(oclcServiceBounded) {
-            unbindService(oclcServiceConnection);
-            oclcServiceBounded = false;
-        } // end if.
+        //if(oclcServiceBounded) {
+        //    unbindService(oclcServiceConnection);
+        //    oclcServiceBounded = false;
+        //} // end if.
 
-        Log.d("onStart()", "Service oclcServiceConnection unbind.");
+        //Log.d("onStop()", "Service oclcServiceConnection unbind.");
     }
 
     /**
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 oclcServiceConnection,
                 Context.BIND_AUTO_CREATE );
 
-        Log.d("onStart()", "Service oclcServiceConnection Started");
+        Log.d("onResume()", "Service oclcServiceConnection Started");
 
     } // end method onResume.
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             getApplicationContext().unbindService(oclcServiceConnection);
         } // end if.
 
-        Log.d("onStart()", "Service oclcServiceConnection unbind.");
+        Log.d("onDestroy()", "Service oclcServiceConnection unbind.");
 
     } //end method onDestroy.
 

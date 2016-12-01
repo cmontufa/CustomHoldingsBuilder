@@ -36,7 +36,7 @@ public class OclcService extends Service {
      * TODO Method description.
      *
      * @param intent TODO description.
-     * @return
+     * @return -  TODO description.
      * @since 1.0
      */
     @Override
@@ -54,7 +54,12 @@ public class OclcService extends Service {
      */
     public class LocalBinder extends Binder {
 
-        // TODO description.
+        /**
+         * TODO description.
+         *
+         * @return -  TODO description.
+         * @since 1.0
+         */
         public OclcService getServerInstance() {
 
             // TODO description.
