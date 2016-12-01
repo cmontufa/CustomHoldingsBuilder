@@ -10,12 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +31,6 @@ import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity mainActivityInstance;
-    private boolean isServiceBound = false;
 
     public static MainActivity getInstance() {
         return mainActivityInstance;
@@ -41,6 +38,25 @@ public class MainActivity extends AppCompatActivity {
 
     private OclcService oclcService;
     private Boolean oclcServiceBounded = false;
+
+    /**
+     *
+     */
+    ServiceConnection oclcServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            oclcServiceBounded = true;
+            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
+            oclcService = mLocalBinder.getServerInstance();
+        } // end method onServiceConnected.
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            oclcServiceBounded = false;
+            oclcService = null;
+        } // end method onServiceDisconnected
+    };
 
     //Example of the URL for search params of state:MA AND state:OH AND supplier:Y
     private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
@@ -57,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // Comment this out. creates the the file for testing.
+        //
         // Comment this out. deletes the database for testing.
         //this.deleteDatabase("CustomHoldingsDB");
 
@@ -70,18 +86,22 @@ public class MainActivity extends AppCompatActivity {
     } // end method onCreate.
 
     /**
-     * Executes when activity stops.
+     * Executes when thr activity brcomrs hidden.
      *
      * @since 1.0
      */
     @Override
     protected void onStop() {
         super.onStop();
+
+        // Unbind oclcServiceConnection service if bounded and unset flag.
         if(oclcServiceBounded) {
             unbindService(oclcServiceConnection);
             oclcServiceBounded = false;
-        }
-    };
+        } // end if.
+
+        Log.d("onStart()", "Service oclcServiceConnection unbind.");
+    }
 
     /**
      * Executes when activity starts.
@@ -93,23 +113,44 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Executes when the activity will start interacting with the user, and is at the top of the activity stack
+     *
+     * @since 1.0
+     */
     @Override
     protected void onResume() {
         super.onResume();
-        isServiceBound = getApplicationContext().bindService( new Intent(getApplicationContext(),
-                                                                         OclcService.class),
-                                                              oclcServiceConnection,
-                                                              Context.BIND_AUTO_CREATE );
-        Log.d("onStart()", "Service Started");
-    }
 
+        //
+        oclcServiceBounded = getApplicationContext().bindService(
+                new Intent(getApplicationContext(), OclcService.class),
+                oclcServiceConnection,
+                Context.BIND_AUTO_CREATE );
+
+        Log.d("onStart()", "Service oclcServiceConnection Started");
+
+    } // end method onResume.
+
+    /**
+     * Executes before your activity is destroyed
+     *
+     * @since 1.0
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isServiceBound) {
+
+        // Unbind oclcServiceConnection service if bounded.
+        if (oclcServiceBounded) {
             getApplicationContext().unbindService(oclcServiceConnection);
-        }
-    }
+        } // end if.
+
+        Log.d("onStart()", "Service oclcServiceConnection unbind.");
+
+    } //end method onDestroy.
+
+    // TODO delete this block
     // MainActivity has leaked ServiceConnection error
     // Internet solution
     // This is usually a result of a Service being bound when an Activity is dismissed.
@@ -122,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     // getApplicationContext().unbindService(oclcServiceConnection);
 
     /**
-     * Sets up the Create New Button
+     * Sets up the Create New Button.
      *
      * @since 1.0
      */
@@ -151,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             } //end if.
             else {
                 Log.d("setupCreateNewButton", "database does not exist.");
-                // TODO else continue to create new holdings.
+                // Continue to create new holdings.
                 startGetLocationActivity();
             } //end else.
 
@@ -191,8 +232,8 @@ public class MainActivity extends AppCompatActivity {
                 } //end if.
                 else {
                     Log.d("setupCreateNewButton", "database exists.");
-                    // TODO else continue to previous holdings.
-                    // startGetHoldingsActivity();
+                    // Continue to previous holdings.
+                    startGetHoldingsActivity();
                 } //end else.
 
             } // end method onClick.
@@ -231,35 +272,45 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Create warning dialog about overwriting previous custom holdings.
+     * Called when previous holding exist.
+     * On OK button calls startGetLocationActivity().
      *
+     * @see #startGetLocationActivity()
      * @since 1.0
      */
     void createPreviousHoldingsDialog() {
 
         // Create a builder for an alert dialog that uses the default alert dialog theme.
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
         // Set the message to display using the given resource id.
         builder.setMessage(R.string.create_new_dialog_message);
+
         // Set the title using the given resource id.
         builder.setTitle(R.string.create_new_dialog_title);
+
         // Set a listener to be invoked when the positive button of the dialog is pressed.
         builder.setPositiveButton(
             R.string.ok,
             new DialogInterface.OnClickListener() {
+
                 public void onClick(DialogInterface dialog, int id) {
                     // start new holdings
                     startGetLocationActivity();
-                }
+                } // end method onClick
         });
+
         // Set a listener to be invoked when the negative button of the dialog is pressed.
         builder.setNegativeButton(
             R.string.cancel,
             new DialogInterface.OnClickListener() {
+
                 public void onClick(DialogInterface dialog, int id) {
                     // Cancel the dialog.
                     dialog.cancel();
-                }
+                } // end method onClick
         });
+
         // Create an AlertDialog with the arguments supplied to this builder.
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -268,60 +319,49 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Create a warning dialog for creating new custom holdings.
+     * Called when no previous holding exist for continuing.
+     * On OK button calls startGetLocationActivity().
      *
+     * @see #startGetLocationActivity()
      * @since 1.0
      */
     void createNoPreviousHoldingsDialog() {
 
         // Create a builder for an alert dialog that uses the default alert dialog theme.
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        // Set the message to display using the given resource id.
-        builder.setMessage(R.string.continue_dialog_message);
+
         // Set the title using the given resource id.
         builder.setTitle(R.string.continue_dialog_title);
+
+        // Set the message to display using the given resource id.
+        builder.setMessage(R.string.continue_dialog_message);
+
         // Set a listener to be invoked when the positive button of the dialog is pressed.
         builder.setPositiveButton(
                 R.string.ok,
                 new DialogInterface.OnClickListener() {
+
                     public void onClick(DialogInterface dialog, int id) {
                         // start new holdings
                         startGetLocationActivity();
-                    }
+                    } // end method onClick
                 });
+
         // Set a listener to be invoked when the negative button of the dialog is pressed.
         builder.setNegativeButton(
                 R.string.cancel,
                 new DialogInterface.OnClickListener() {
+
                     public void onClick(DialogInterface dialog, int id) {
                         // Cancel the dialog.
                         dialog.cancel();
-                    }
+                    } // end method onClick
                 });
+
         // Create an AlertDialog with the arguments supplied to this builder.
         AlertDialog dialog = builder.create();
         dialog.show();
 
     } // end method createNoPreviousHoldingsDialog.
-
-
-    ServiceConnection oclcServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            oclcServiceBounded = true;
-            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
-            oclcService = mLocalBinder.getServerInstance();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            oclcServiceBounded = false;
-            oclcService = null;
-        }
-    };
-
-
-
-
 
 } // end class MainActivity.
