@@ -1,4 +1,10 @@
 package edu.grzegorzewski.customholdingsbuilder.services.impl;
+/* ITMD-555 Android App Development
+ * Dennis Grzegorzewski
+ * Christopher Montufar
+ * Final Project
+ * Due: 12/05/2016
+ */
 
 import android.os.AsyncTask;
 
@@ -20,10 +26,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import edu.grzegorzewski.customholdingsbuilder.domain.Institution;
 
 /**
- * Created by Christopher Montufar on 11/27/16.
+ * TODO Class description.
+ *
+ * @author Christopher Montufar.
+ * @version 1.0, 11/27/2016.
  */
 public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institution>> {
 
+    /*
+     * Declare and initialize class variables
+     */
     private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
     private static final String TOTAL_SEARCH_RESULTS = "os:totalResults";
 
@@ -40,33 +52,53 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
     private static final String OCLC_INSTITUTION_COPY_FEES_ELEMENT = "ns14:copyFees";
     private static final String OCLC_INSTITUTION_SEARCH_PARAMS_ELEMENT = "ns14:searchParams";
 
+    /*
+     * Methods.
+     */
+
+    /**
+     * TODO Method description.
+     *
+     * @param urls TODO description.
+     * @return - TODO description.
+     * @since 1.0
+     */
     @Override
     protected List<Institution> doInBackground(String... urls) {
+
+        // TODO description.
         List<Institution> institutions = new ArrayList<>();
 
         try {
 
+            // TODO description.
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
+            // TODO description.
             Document doc = null;
 
+            // TODO description.
             doc = db.parse(new URL(urls[0]).openStream());
             doc.getDocumentElement().normalize();
 
             //Integer totalSearchResults = Integer.parseInt(doc.getElementsByTagName(TOTAL_SEARCH_RESULTS).item(0).getTextContent());
 
+            // TODO description.
             NodeList nList = doc.getElementsByTagName("entry");
 
+            // TODO description.
             for (int index = 0; index < nList.getLength(); index++) {
                 Node nNode = nList.item(index);
                 Element eElement = (Element) nNode;
                 if (eElement == null) {
                     continue;
-                }
+                } // end if.
 
+                // TODO description.
                 Institution institution = new Institution();
 
+                // TODO description.
                 String institutionId = eElement.getElementsByTagName(OCLC_INSTITUTION_ID_ELEMENT).item(0).getTextContent();
                 String institutionName = eElement.getElementsByTagName(OCLC_INSTITUTION_NAME_ELEMENT).item(0).getTextContent();
                 String institutionSupplier = eElement.getElementsByTagName(OCLC_INSTITUTION_SUPPLIER_ELEMENT).item(0).getTextContent();
@@ -80,8 +112,10 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
                 String institutionCopyFees = eElement.getElementsByTagName(OCLC_INSTITUTION_COPY_FEES_ELEMENT).item(0).getTextContent();
                 String institutionSearchParams = eElement.getElementsByTagName(OCLC_INSTITUTION_SEARCH_PARAMS_ELEMENT).item(0).getTextContent();
 
+                // TODO description.
                 System.out.println("institutionName: " + institutionName);
 
+                // TODO description.
                 institution.setId(institutionId);
                 institution.setName(institutionName);
                 institution.setSupplier(institutionSupplier);
@@ -95,16 +129,28 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
                 institution.setCopyFees(institutionCopyFees);
                 institution.setSearchParams(institutionSearchParams);
 
+                // TODO description.
                 institutions.add(institution);
-            }
-        } catch (SAXException | IOException | ParserConfigurationException e) {
+            } // end for.
+
+        }  // end try.
+
+        catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
-        }
+        } // end catch.
+
         return institutions;
     }
 
+    /**
+     * TODO Method description.
+     *
+     * @param institutions
+     * @since 1.0
+     */
     @Override
     protected void onPostExecute(List<Institution> institutions) {
+        // TODO description.
+    } // end method onPostExecute.
 
-    }
-}
+} // end class OclCSearchResultsTask.
