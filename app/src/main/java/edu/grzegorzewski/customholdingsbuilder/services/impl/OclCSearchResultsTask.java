@@ -36,7 +36,10 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
     /*
      * Declare and initialize class variables
      */
-    private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
+    private static String state = "IL";
+    private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/" + // root URL
+                                           "institutionsearch?q=state:" + state + "%20AND%20supplier:Y" + // query
+                                           "&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p"; // wskey
     private static final String TOTAL_SEARCH_RESULTS = "os:totalResults";
 
     private static final String OCLC_INSTITUTION_ID_ELEMENT = "ns14:institutionId";
@@ -57,7 +60,7 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
      */
 
     /**
-     * TODO Method description.
+     * Override this method to perform a computation on a background thread. .
      *
      * @param urls TODO description.
      * @return - TODO description.
@@ -143,7 +146,7 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
     }
 
     /**
-     * TODO Method description.
+     * Runs on the UI thread after doInBackground(Params...).
      *
      * @param institutions
      * @since 1.0

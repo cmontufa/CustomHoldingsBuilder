@@ -21,11 +21,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:id="@+id/textViewAK"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_on"
         android:textColor="#FFFFFF"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -35,12 +37,12 @@
         android:layout_alignBaseline="@id/textViewAK"
         android:layout_toRightOf="@+id/textViewAK"
         android:layout_toEndOf="@+id/textViewAK"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewAL"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -50,12 +52,12 @@
         android:layout_alignBaseline="@id/textViewAL"
         android:layout_toRightOf="@+id/textViewAL"
         android:layout_toEndOf="@+id/textViewAL"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewAR"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -65,12 +67,12 @@
         android:layout_alignBaseline="@id/textViewAR"
         android:layout_toRightOf="@+id/textViewAR"
         android:layout_toEndOf="@+id/textViewAR"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewAZ"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -80,12 +82,12 @@
         android:layout_alignBaseline="@id/textViewAZ"
         android:layout_toRightOf="@+id/textViewAZ"
         android:layout_toEndOf="@+id/textViewAZ"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewCA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -95,12 +97,12 @@
         android:layout_alignBaseline="@id/textViewCA"
         android:layout_toRightOf="@+id/textViewCA"
         android:layout_toEndOf="@+id/textViewCA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewCO"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -109,12 +111,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewAL"
         android:id="@+id/textViewCT"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -124,12 +128,12 @@
         android:layout_alignBaseline="@id/textViewCT"
         android:layout_toRightOf="@+id/textViewCT"
         android:layout_toEndOf="@+id/textViewCT"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewDC"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -139,12 +143,12 @@
         android:layout_alignBaseline="@id/textViewDC"
         android:layout_toRightOf="@+id/textViewDC"
         android:layout_toEndOf="@+id/textViewDC"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewDE"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -154,12 +158,12 @@
         android:layout_alignBaseline="@id/textViewDE"
         android:layout_toRightOf="@+id/textViewDE"
         android:layout_toEndOf="@+id/textViewDE"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewFL"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -169,12 +173,12 @@
         android:layout_alignBaseline="@id/textViewFL"
         android:layout_toRightOf="@+id/textViewFL"
         android:layout_toEndOf="@+id/textViewFL"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewGA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -184,12 +188,12 @@
         android:layout_alignBaseline="@id/textViewGA"
         android:layout_toRightOf="@+id/textViewGA"
         android:layout_toEndOf="@+id/textViewGA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewHI"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -198,12 +202,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewHI"
         android:id="@+id/textViewIA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -213,12 +219,12 @@
         android:layout_alignBaseline="@id/textViewIA"
         android:layout_toRightOf="@+id/textViewIA"
         android:layout_toEndOf="@+id/textViewIA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewID"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -228,12 +234,12 @@
         android:layout_alignBaseline="@id/textViewID"
         android:layout_toRightOf="@+id/textViewID"
         android:layout_toEndOf="@+id/textViewID"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewIL"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -243,12 +249,12 @@
         android:layout_alignBaseline="@id/textViewIL"
         android:layout_toRightOf="@+id/textViewIL"
         android:layout_toEndOf="@+id/textViewIL"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewIN"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -258,12 +264,12 @@
         android:layout_alignBaseline="@id/textViewIN"
         android:layout_toRightOf="@+id/textViewIN"
         android:layout_toEndOf="@+id/textViewIN"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewKS"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -273,12 +279,12 @@
         android:layout_alignBaseline="@id/textViewKS"
         android:layout_toRightOf="@+id/textViewKS"
         android:layout_toEndOf="@+id/textViewKS"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewKY"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -287,12 +293,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewKY"
         android:id="@+id/textViewLA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -302,12 +310,12 @@
         android:layout_alignBaseline="@id/textViewLA"
         android:layout_toRightOf="@+id/textViewLA"
         android:layout_toEndOf="@+id/textViewLA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -317,12 +325,12 @@
         android:layout_alignBaseline="@id/textViewMA"
         android:layout_toRightOf="@+id/textViewMA"
         android:layout_toEndOf="@+id/textViewMA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMD"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -332,12 +340,12 @@
         android:layout_alignBaseline="@id/textViewMD"
         android:layout_toRightOf="@+id/textViewMD"
         android:layout_toEndOf="@+id/textViewMD"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewME"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -347,12 +355,12 @@
         android:layout_alignBaseline="@id/textViewME"
         android:layout_toRightOf="@+id/textViewME"
         android:layout_toEndOf="@+id/textViewME"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMI"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -362,12 +370,12 @@
         android:layout_alignBaseline="@id/textViewMI"
         android:layout_toRightOf="@+id/textViewMI"
         android:layout_toEndOf="@+id/textViewMI"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMN"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -376,12 +384,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewMN"
         android:id="@+id/textViewMO"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -391,12 +401,12 @@
         android:layout_alignBaseline="@id/textViewMO"
         android:layout_toRightOf="@+id/textViewMO"
         android:layout_toEndOf="@+id/textViewMO"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMS"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -406,12 +416,12 @@
         android:layout_alignBaseline="@id/textViewMS"
         android:layout_toRightOf="@+id/textViewMS"
         android:layout_toEndOf="@+id/textViewMS"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewMT"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -421,12 +431,12 @@
         android:layout_alignBaseline="@id/textViewMT"
         android:layout_toRightOf="@+id/textViewMT"
         android:layout_toEndOf="@+id/textViewMT"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNC"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -436,12 +446,12 @@
         android:layout_alignBaseline="@id/textViewNC"
         android:layout_toRightOf="@+id/textViewNC"
         android:layout_toEndOf="@+id/textViewNC"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewND"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -451,12 +461,12 @@
         android:layout_alignBaseline="@id/textViewND"
         android:layout_toRightOf="@+id/textViewND"
         android:layout_toEndOf="@+id/textViewND"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNE"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -465,12 +475,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewNE"
         android:id="@+id/textViewNH"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -480,12 +492,12 @@
         android:layout_alignBaseline="@id/textViewNH"
         android:layout_toRightOf="@+id/textViewNH"
         android:layout_toEndOf="@+id/textViewNH"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNJ"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -495,12 +507,12 @@
         android:layout_alignBaseline="@id/textViewNJ"
         android:layout_toRightOf="@+id/textViewNJ"
         android:layout_toEndOf="@+id/textViewNJ"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNM"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -510,12 +522,12 @@
         android:layout_alignBaseline="@id/textViewNM"
         android:layout_toRightOf="@+id/textViewNM"
         android:layout_toEndOf="@+id/textViewNM"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNV"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -525,12 +537,12 @@
         android:layout_alignBaseline="@id/textViewNV"
         android:layout_toRightOf="@+id/textViewNV"
         android:layout_toEndOf="@+id/textViewNV"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewNY"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -540,12 +552,12 @@
         android:layout_alignBaseline="@id/textViewNY"
         android:layout_toRightOf="@+id/textViewNY"
         android:layout_toEndOf="@+id/textViewNY"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewOH"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -554,12 +566,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewOH"
         android:id="@+id/textViewOK"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -569,12 +583,12 @@
         android:layout_alignBaseline="@id/textViewOK"
         android:layout_toRightOf="@+id/textViewOK"
         android:layout_toEndOf="@+id/textViewOK"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewOR"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -584,12 +598,12 @@
         android:layout_alignBaseline="@id/textViewOR"
         android:layout_toRightOf="@+id/textViewOR"
         android:layout_toEndOf="@+id/textViewOR"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewPA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -599,12 +613,12 @@
         android:layout_alignBaseline="@id/textViewPA"
         android:layout_toRightOf="@+id/textViewPA"
         android:layout_toEndOf="@+id/textViewPA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewPR"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -614,12 +628,12 @@
         android:layout_alignBaseline="@id/textViewPR"
         android:layout_toRightOf="@+id/textViewPR"
         android:layout_toEndOf="@+id/textViewPR"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewRI"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -629,12 +643,12 @@
         android:layout_alignBaseline="@id/textViewRI"
         android:layout_toRightOf="@+id/textViewRI"
         android:layout_toEndOf="@+id/textViewRI"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewSC"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -643,12 +657,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewSC"
         android:id="@+id/textViewSD"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -658,12 +674,12 @@
         android:layout_alignBaseline="@id/textViewSD"
         android:layout_toRightOf="@+id/textViewSD"
         android:layout_toEndOf="@+id/textViewSD"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewTN"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -673,12 +689,12 @@
         android:layout_alignBaseline="@id/textViewTN"
         android:layout_toRightOf="@+id/textViewTN"
         android:layout_toEndOf="@+id/textViewTN"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewTX"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -688,12 +704,12 @@
         android:layout_alignBaseline="@id/textViewTX"
         android:layout_toRightOf="@+id/textViewTX"
         android:layout_toEndOf="@+id/textViewTX"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewUT"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -703,12 +719,12 @@
         android:layout_alignBaseline="@id/textViewUT"
         android:layout_toRightOf="@+id/textViewUT"
         android:layout_toEndOf="@+id/textViewUT"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewVA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -718,12 +734,12 @@
         android:layout_alignBaseline="@id/textViewVA"
         android:layout_toRightOf="@+id/textViewVA"
         android:layout_toEndOf="@+id/textViewVA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewVT"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -732,12 +748,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/get_holdings_margin"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_below="@id/textViewVT"
         android:id="@+id/textViewWA"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -747,12 +765,12 @@
         android:layout_alignBaseline="@id/textViewWA"
         android:layout_toRightOf="@+id/textViewWA"
         android:layout_toEndOf="@+id/textViewWA"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewWI"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -762,12 +780,12 @@
         android:layout_alignBaseline="@id/textViewWI"
         android:layout_toRightOf="@+id/textViewWI"
         android:layout_toEndOf="@+id/textViewWI"
-        android:layout_marginLeft="130dp"
-        android:layout_marginStart="130dp"
+        android:layout_marginLeft="123dp"
+        android:layout_marginStart="123dp"
         android:id="@+id/textViewWV"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
@@ -777,22 +795,22 @@
         android:layout_alignBaseline="@id/textViewWV"
         android:layout_toRightOf="@+id/textViewWV"
         android:layout_toEndOf="@+id/textViewWV"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/get_holdings_margin"
+        android:layout_marginStart="@dimen/get_holdings_margin"
         android:id="@+id/textViewWY"
-        android:textSize="18sp"
+        android:textSize="@dimen/get_holdings_text_size"
         android:background="@drawable/state_border_off"
-        android:minWidth="50dp"
+        android:minWidth="@dimen/get_holdings_width"
         android:textAlignment="center" />
 
     <TextView
         android:text="@string/processing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginLeft="105dp"
+        android:layout_marginStart="105dp"
         android:id="@+id/textView2"
-        android:textSize="26sp"
+        android:textSize="26dp"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
