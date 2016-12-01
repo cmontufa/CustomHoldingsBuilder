@@ -228,6 +228,8 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
                 // Create  intent for GetHoldingsActivity.
                 Intent intent = new Intent(GetLocationActivity.this, GetHoldingsActivity.class);
+                Spinner stateSpinner = (Spinner) findViewById(R.id.state_spinner);
+                intent.putExtra("state", stateSpinner.getSelectedItem().toString());
                 // Execute intent.
                 startActivity(intent);
 

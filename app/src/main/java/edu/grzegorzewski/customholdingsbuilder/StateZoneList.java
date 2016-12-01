@@ -18,12 +18,20 @@ import java.util.List;
  * @author Dennis Grzegorzewski.
  * @version 1.0, 11/27/2016
  */
-class StateZoneList {
+public class StateZoneList {
 
     /*
      * Declare and initialize instance variables and objects.
      */
     private List<Pair> stateZones = new ArrayList<>();
+
+    public List<Pair> getStateZones() {
+        return stateZones;
+    }
+
+    public void setStateZones(List<Pair> stateZones) {
+        this.stateZones = stateZones;
+    }
 
     /*
      * Constructors.

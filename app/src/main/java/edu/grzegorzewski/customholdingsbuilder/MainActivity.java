@@ -32,36 +32,15 @@ import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity mainActivityInstance;
+    private static OclcService oclcService;
+    private Boolean oclcServiceBounded = false;
 
     public static MainActivity getInstance() {
         return mainActivityInstance;
     }
-
-    private OclcService oclcService;
-    private Boolean oclcServiceBounded = false;
-
-    /**
-     *
-     */
-    ServiceConnection oclcServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            oclcServiceBounded = true;
-            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
-            oclcService = mLocalBinder.getServerInstance();
-        } // end method onServiceConnected.
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            oclcServiceBounded = false;
-            oclcService = null;
-        } // end method onServiceDisconnected
-    };
-
-    //Example of the URL for search params of state:MA AND state:OH AND supplier:Y
-    private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch?q=state:MA%20AND%20state:OH%20AND%20supplier:Y&wskey=vGFCwWwPUemlAApDyGfvpYrj2fR5orRXDVBrpO38RFDoHDnKlwh4bElCvfVaj8pG5KEP8HD4itDj7l4p";
-
+    public static OclcService getOclcService() {
+        return oclcService;
+    }
     /**
      * Executes when activity starts.
      *
@@ -94,14 +73,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        // Unbind oclcServiceConnection service if bounded and unset flag.
-        if(oclcServiceBounded) {
-            unbindService(oclcServiceConnection);
-            oclcServiceBounded = false;
-        } // end if.
-
-        Log.d("onStart()", "Service oclcServiceConnection unbind.");
     }
 
     /**
@@ -112,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        bindService(new Intent(this, OclcService.class), oclcServiceConnection, BIND_AUTO_CREATE);
+        Log.i("onStart()", "Service Started");
     }
 
     /**
@@ -123,13 +96,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //
-        oclcServiceBounded = getApplicationContext().bindService(
-                new Intent(getApplicationContext(), OclcService.class),
-                oclcServiceConnection,
-                Context.BIND_AUTO_CREATE );
-
-        Log.d("onStart()", "Service oclcServiceConnection Started");
 
     } // end method onResume.
 
@@ -141,27 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        // Unbind oclcServiceConnection service if bounded.
-        if (oclcServiceBounded) {
-            getApplicationContext().unbindService(oclcServiceConnection);
-        } // end if.
-
-        Log.d("onStart()", "Service oclcServiceConnection unbind.");
-
     } //end method onDestroy.
-
-    // TODO delete this block
-    // MainActivity has leaked ServiceConnection error
-    // Internet solution
-    // This is usually a result of a Service being bound when an Activity is dismissed.
-    // I've solved it before by keeping a boolean value in the Activity that keeps track of whether or not the Service is bound.
-    // Then in onDestroy check if the Service is still bound with the boolean instance variable and unbind the Service if it is still bound.
-    // I also do my initial binding of the Service in onResume while checking to make sure it isn't already bound with my boolean instance variable just in case
-    // boolean isServiceBound = false;
-    // isServiceBound = getApplicationContext().bindService( new Intent(getApplicationContext(), OclcService.class), oclcServiceConnection, Context.BIND_AUTO_CREATE );
-    // if (isServiceBound)
-    // getApplicationContext().unbindService(oclcServiceConnection);
 
     /**
      * Sets up the Create New Button.
@@ -364,5 +310,21 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
     } // end method createNoPreviousHoldingsDialog.
+
+    ServiceConnection oclcServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            oclcServiceBounded = true;
+            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
+            oclcService = mLocalBinder.getServerInstance();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            oclcServiceBounded = false;
+            oclcService = null;
+        }
+    };
 
 } // end class MainActivity.
