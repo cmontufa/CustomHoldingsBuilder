@@ -42,32 +42,48 @@ public class OclcIntentService extends IntentService {
 
     public static final String BROADCAST_RESPONSE_STRING = "broadcastResponse";
 
+    /*
+     * Constructors
+     */
+
+    /**
+     * TODO Constructor descripton.
+     *
+     * @since 1.0
+     */
     public OclcIntentService() {
         super("OclcIntentService");
-    }
+    } // end constructor
+
+    /*
+     * Methods.
+     */
 
     /**
      * TODO Method descripton.
      *
-     * @param intent
-     * @see StateZoneList
+     * @param intent TODO descripton.
+     * @see StateZoneList TODO descripton.
      * @since 1.0
      */
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        // TODO descripton.
+        // The from state
         String state = intent.getStringExtra("state");
+
         // TODO descripton.
         StateZoneList stateZone = new StateZoneList(state);
+
         // TODO descripton.
         List<Pair> stateZoneList = stateZone.getStateZones();
 
+        //
         for (Pair stateZonePair : stateZoneList) {
+            // Build URL for API calls
+            String apiUrlCall = buildUrlForAPI((String) stateZonePair.first);
             // TODO descripton.
-            String apiUrlCall = buildUrlForAPI(state, (String) stateZonePair.first);
-            // TODO descripton.
-            String searchParams = buildSearchParams(state, (String) stateZonePair.first);
+            String searchParams = buildSearchParams((String) stateZonePair.first);
 
             Log.i("Running for URL: ", apiUrlCall);
 
@@ -83,9 +99,10 @@ public class OclcIntentService extends IntentService {
             broadcastIntent.putExtra(BROADCAST_RESPONSE_STRING, (String) stateZonePair.first);
             // TODO descripton.
             sendBroadcast(broadcastIntent);
-        }
 
-    }
+        } //end for.
+
+    } // end method onHandleIntent.
 
     /**
      * Build URL for API calls
@@ -94,7 +111,7 @@ public class OclcIntentService extends IntentService {
      * @return - TODO descripton.
      * @since 1.0
      */
-    private String buildUrlForAPI(String fromState, String toState) {
+    private String buildUrlForAPI(String toState) {
 
         StringBuilder url = new StringBuilder(OCLC_URL);
         url.append(String.format(OCLC_SEARCH_QUERY_TEMPLATE,
@@ -105,24 +122,26 @@ public class OclcIntentService extends IntentService {
                 "Y"));
         url.append(OCLC_TOKEN);
         return url.toString();
-    }
+
+    } // end method buildUrlForAPI.
 
     /**
      * TODO Method descripton.
      *
-     * @param fromState TODO descripton.
      * @param toState TODO descripton.
      * @return - TODO descripton.
      * @since 1.0
      */
-    private String buildSearchParams(String fromState, String toState) {
+    private String buildSearchParams(String toState) {
 
-        return String.format(OCLC_SEARCH_QUERY_TEMPLATE, fromState,
-                OCLC_AND_VALUE_WITH_SPACES,
+        return String.format(OCLC_SEARCH_QUERY_TEMPLATE,
+                //fromState,
+                //OCLC_AND_VALUE_WITH_SPACES,
                 toState,
                 OCLC_AND_VALUE_WITH_SPACES,
                 "Y");
-    }
+
+    } // end method buildSearchParams.
 
     /**
      * TODO Method descripton.
@@ -150,8 +169,10 @@ public class OclcIntentService extends IntentService {
                 e.printStackTrace();
             }
         }
+
         // TODO descripton.
         return institutions;
 
     } // end method retrieveAndParseOclc.
-}
+
+} // end class OclcIntentService.
