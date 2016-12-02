@@ -15,6 +15,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.widget.TextView;
 
 import edu.grzegorzewski.customholdingsbuilder.services.OclcIntentService;
@@ -64,6 +66,7 @@ public class GetHoldingsActivity extends Activity {
     } // end method onCreate.
 
     /**
+     * TODO Method description.
      *
      * @since 1.0
      */
@@ -74,6 +77,7 @@ public class GetHoldingsActivity extends Activity {
     } //end method onStart.
 
     /**
+     * TODO Method description.
      *
      * @since 1.0
      */
@@ -83,6 +87,7 @@ public class GetHoldingsActivity extends Activity {
     } //end method onResume.
 
     /**
+     * TODO Method description.
      *
      * @since 1.0
      */
@@ -132,8 +137,8 @@ public class GetHoldingsActivity extends Activity {
             TextView stateLabel = (TextView) findViewById(textViewId);
 
             // Change the background and text color.
-            stateLabel.setBackground(getResources().getDrawable(R.drawable.state_border_on));
-            stateLabel.setTextColor(getResources().getColor(R.color.colorPrimaryLight));
+            stateLabel.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.state_border_on));
+            stateLabel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight));
             //Toast.makeText(GetHoldingsActivity.this, "State Completed: " + intent.getStringExtra(OclcIntentService.BROADCAST_RESPONSE_STRING), Toast.LENGTH_LONG).show();
 
         } //end method onReceive.

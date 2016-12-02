@@ -103,9 +103,10 @@ public class OclcDao extends SQLiteOpenHelper {
         // drop  old table
         db.execSQL("DROP TABLE IF EXISTS OCLC_SEARCH_RESULTS");
 
-        //
+        // create new table
         this.onCreate(db);
-    }
+
+    } // end method onUpgrade.
 
     /**
      * TODO Method description.
@@ -114,6 +115,7 @@ public class OclcDao extends SQLiteOpenHelper {
      * @since 1.0
      */
     public void addInstitution(Institution institution) {
+
         Log.d("addInstitution", institution.toString());
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -141,7 +143,8 @@ public class OclcDao extends SQLiteOpenHelper {
         }
 
         db.close();
-    }
+
+    } // end method addInstitution.
 
     /**
      * TODO Method description.
@@ -151,9 +154,16 @@ public class OclcDao extends SQLiteOpenHelper {
      * @return - TODO description.
      * @since 1.0
      */
-    public Institution getInstitutionBySearchParamsAndInstitutionId(String searchParams, String institutionId) {
+    private Institution getInstitutionBySearchParamsAndInstitutionId(String searchParams, String institutionId) {
+
+        /*
+         * Declare and initialize local variables.
+         */
+
         Log.d("getInstSearchParams - ", searchParams);
-        List<Institution> institutions = new LinkedList<Institution>();
+
+        // not used.
+        List<Institution> institutions = new LinkedList<>();
 
         String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where search_params = '" + searchParams + "' AND institution_id = '" + institutionId + "'";
 
@@ -161,6 +171,7 @@ public class OclcDao extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         Institution institution = null;
+
         if (cursor.moveToFirst()) {
             institution = new Institution();
             institution.setId(cursor.getString(0));
@@ -176,10 +187,12 @@ public class OclcDao extends SQLiteOpenHelper {
             institution.setLoanFees(cursor.getString(10));
             institution.setCopyFees(cursor.getString(11));
             institution.setSearchParams(cursor.getString(12));
-        }
+        } // end if.
 
+        cursor.close();
         return institution;
-    }
+
+    } //end method getInstitutionBySearchParamsAndInstitutionId.
 
     /**
      * TODO Method description.
@@ -189,6 +202,7 @@ public class OclcDao extends SQLiteOpenHelper {
      * @since 1.0
      */
     public List<Institution> getAllInstitutionsBySearchParams(String searchParams) {
+
         List<Institution> institutions = new LinkedList<>();
 
         String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where search_params = '" + searchParams + "'";
@@ -196,7 +210,7 @@ public class OclcDao extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        Institution institution = null;
+        Institution institution;
 
         if (cursor.moveToFirst()) {
             do {
@@ -217,10 +231,13 @@ public class OclcDao extends SQLiteOpenHelper {
 
                 institutions.add(institution);
             } while (cursor.moveToNext());
-        }
+        } // end if.
+
+        cursor.close();
         Log.d("getAllInstitutions()", institutions.toString());
         return institutions;
-    }
+
+    } // end method getAllInstitutionsBySearchParams.
 
     /**
      * TODO Method description.

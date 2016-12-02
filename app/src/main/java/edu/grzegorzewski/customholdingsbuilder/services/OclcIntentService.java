@@ -21,12 +21,12 @@ import edu.grzegorzewski.customholdingsbuilder.StateZoneList;
 import edu.grzegorzewski.customholdingsbuilder.dao.OclcDao;
 import edu.grzegorzewski.customholdingsbuilder.domain.Institution;
 import edu.grzegorzewski.customholdingsbuilder.services.impl.OclCSearchResultsTask;
-
 /**
  * TODO Class description.
  *
  * @author Christopher Montufar.
  * @version 1.0, 12/01/2016.
+
  */
 public class OclcIntentService extends IntentService {
 
