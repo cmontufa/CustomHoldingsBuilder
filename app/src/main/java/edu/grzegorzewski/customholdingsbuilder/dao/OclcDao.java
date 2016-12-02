@@ -1,5 +1,12 @@
 package edu.grzegorzewski.customholdingsbuilder.dao;
 
+/* ITMD-555 Android App Development
+ * Dennis Grzegorzewski
+ * Christopher Montufar
+ * Final Project
+ * Due: 12/05/2016
+ */
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,9 +20,16 @@ import java.util.List;
 import edu.grzegorzewski.customholdingsbuilder.domain.Institution;
 
 /**
- * Created by Christopher Montufar on 11/27/16.
+ * TODO Class description.
+ *
+ * @author Christopher Montufar.
+ * @version 1.0, 11/27/2016.
  */
 public class OclcDao extends SQLiteOpenHelper {
+
+    /*
+     * Declare and initialize class variables.
+     */
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -38,10 +52,29 @@ public class OclcDao extends SQLiteOpenHelper {
     private static final String KEY_COPY_FEES = "copy_fees";
     private static final String KEY_SEARCH_PARAMS = "search_params";
 
+    /*
+     * Constructors.
+     */
+
+    /**
+     *  TODO Constructor description.
+     *
+     * @param context TODO description.
+     */
     public OclcDao(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
+    } // end constructor.
 
+    /*
+     * Methods.
+     */
+
+    /**
+     * TODO Method description.
+     *
+     * @param db TODO description.
+     * @since 1.0
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -53,17 +86,34 @@ public class OclcDao extends SQLiteOpenHelper {
                 "copy_fees REAL, " + "search_params TEXT) ";
 
         db.execSQL(CREATE_OCLC_SEARCH_RESULTS_TABLE);
-    }
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
 
+    } // end method onCreate.
+
+    /***
+     * TODO Method description.
+     *
+     * @param db TODO description.
+     * @param oldVersion TODO description.
+     * @param newVersion TODO description.
+     * @since 1.0
+     */
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        // drop  old table
         db.execSQL("DROP TABLE IF EXISTS OCLC_SEARCH_RESULTS");
 
+        //
         this.onCreate(db);
     }
 
-    public void addInstitution(Institution institution){
+    /**
+     * TODO Method description.
+     *
+     * @param institution TODO description.
+     * @since 1.0
+     */
+    public void addInstitution(Institution institution) {
         Log.d("addInstitution", institution.toString());
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -93,6 +143,14 @@ public class OclcDao extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * TODO Method description.
+     *
+     * @param searchParams TODO description.
+     * @param institutionId TODO description.
+     * @return - TODO description.
+     * @since 1.0
+     */
     public Institution getInstitutionBySearchParamsAndInstitutionId(String searchParams, String institutionId) {
         Log.d("getInstSearchParams - ", searchParams);
         List<Institution> institutions = new LinkedList<Institution>();
@@ -123,6 +181,13 @@ public class OclcDao extends SQLiteOpenHelper {
         return institution;
     }
 
+    /**
+     * TODO Method description.
+     *
+     * @param searchParams TODO description.
+     * @return - TODO description.
+     * @since 1.0
+     */
     public List<Institution> getAllInstitutionsBySearchParams(String searchParams) {
         List<Institution> institutions = new LinkedList<>();
 
@@ -157,7 +222,13 @@ public class OclcDao extends SQLiteOpenHelper {
         return institutions;
     }
 
-
+    /**
+     * TODO Method description.
+     *
+     * @param institution TODO description.
+     * @return - TODO description.
+     * @since 1.0
+     */
     public int updateInstitution(Institution institution) {
         Log.d("updateInstitution()", institution.toString());
         SQLiteDatabase db = this.getWritableDatabase();
@@ -184,9 +255,16 @@ public class OclcDao extends SQLiteOpenHelper {
         db.close();
 
         return i;
-    }
+    } // end method updateInstitution.
 
+    /**
+     * TODO Method description.
+     *
+     * @param institution TODO description.
+     * @since 1.0
+     */
     public void deleteInstitution(Institution institution) {
-    }
+        // Method stub.
+    } // end method deleteInstitution.
 
-}
+} // end class deleteInstitution.
