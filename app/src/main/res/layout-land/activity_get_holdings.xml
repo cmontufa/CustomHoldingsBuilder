@@ -700,10 +700,20 @@
         android:text="@string/processing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
         android:id="@+id/textView2"
         android:textSize="26sp"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/get_holdings_margin" />
+
+    <Button
+        android:text="@string/continue_to_create_lists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_continue_to_process"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/get_holdings_margin"
+        android:visibility="invisible" />
 
 </RelativeLayout>
