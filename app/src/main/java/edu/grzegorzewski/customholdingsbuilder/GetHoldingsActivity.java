@@ -1,4 +1,5 @@
 package edu.grzegorzewski.customholdingsbuilder;
+
 /* ITMD-555 Android App Development
  * Dennis Grzegorzewski
  * Christopher Montufar
@@ -12,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.widget.TextView;
 
 import edu.grzegorzewski.customholdingsbuilder.services.OclcIntentService;
@@ -20,6 +23,12 @@ public class GetHoldingsActivity extends Activity {
 
     private OclcIntentServiceReceiver receiver;
 
+    /**
+     * Executes when activity starts.
+     *
+     * @param savedInstanceState - the saved activity state.
+     * @since 1.0
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +76,7 @@ public class GetHoldingsActivity extends Activity {
                     "id", getPackageName());
             TextView stateLabel = (TextView) findViewById(textViewId);
             stateLabel.setBackground(getResources().getDrawable(R.drawable.state_border_on));
+            stateLabel.setTextColor(getResources().getColor(R.color.colorPrimaryLight));
             //Toast.makeText(GetHoldingsActivity.this, "State Completed: " + intent.getStringExtra(OclcIntentService.BROADCAST_RESPONSE_STRING), Toast.LENGTH_LONG).show();
         }
     }

@@ -186,7 +186,7 @@ public class OclcDao extends SQLiteOpenHelper {
         return i;
     }
 
-    public void deleteBook(Institution institution) {
+    public void deleteInstitution(Institution institution) {
     }
 
 }

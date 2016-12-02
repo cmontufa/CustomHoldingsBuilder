@@ -1,4 +1,5 @@
 package edu.grzegorzewski.customholdingsbuilder;
+
 /* ITMD-555 Android App Development
  * Dennis Grzegorzewski
  * Christopher Montufar
@@ -6,49 +7,52 @@ package edu.grzegorzewski.customholdingsbuilder;
  * Due: 12/05/2016
  */
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO Class description.
+ * Displays a Spinner with a dropdown menu of US state and territory abbreviations,
+ * and a button which launches the GetHoldingsActivity when clicked.
+ * When the GetHoldingsActivity is launched, the intent carries the String value of the state selected.
+ * The default value for the state is set to IL.
  *
  * @author Dennis Grzegorzewski.
  * @version 1.0, 11/23/2016
  */
 public class GetLocationActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
+    /*
+     * Declare class variables
+     */
+    private String itemState; // State selected from dropdown spinner.
+
     /**
+     * Executes when activity starts.
      *
-     * @param savedInstanceState TODO parameter description.
+     * @param savedInstanceState - the saved activity state.
+     * @since 1.0
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_location);
 
-        //Log.d("currentState = ", currentState);
-        //setupAutoLocationState();
+        // Sets a Spinner to display a list of state and territory abbreviations for selection.
         setupStateSpinner();
+
+        // Sets up the Begin Building Holdings Button.
+        // Launches GetHoldingsActivity.
         setupBeginBuildingHoldingsButton();
 
     } // end method onCreate
@@ -75,97 +79,6 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
         super.onStop();
         // Auto-generated method stub.
     } // end method onStop.
-/*
-    *//**
-     * TODO Method description.
-     *
-     * @since 1.0
-     *//*
-    private void setupAutoLocationState() {
-
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        // Create a listener for location updates
-        // Used for receiving notifications from the LocationManager when the location has changed.
-        LocationListener locationListener = new LocationListener() {
-
-            // Called when the location has changed.
-            public void onLocationChanged(Location location) {
-
-                // the state of origin for calculations
-                TextView thisLocation = (TextView) findViewById(R.id.textView_this_state);
-                String currentState = (String) thisLocation.getText();
-
-                // attempt to get the location state string
-                String thisState = currentState; // initialize with the currentState text
-                try {
-                    thisState = (new ThisState().getThisState(location.getLatitude(), location.getLongitude()));
-                }  //end try.
-                catch (IOException e) {
-                    e.printStackTrace();
-                } //end catch.
-
-                // change TextView
-                thisLocation.setText(thisState);
-                currentState = thisState; // update changes to currentState
-
-            } // end method onLocationChanged
-
-            *//**
-             * Called when the provider status changes.
-             * This method is called when a provider is unable to fetch a location
-             * or if the provider has recently become available after a period of unavailability.
-             *
-             * @param provider String: the name of the location provider associated with this update.
-             * @param status   int: OUT_OF_SERVICE if the provider is out of service,
-             *                 and this is not expected to change in the near future;
-             *                 TEMPORARILY_UNAVAILABLE if the provider is temporarily unavailable
-             *                 but is expected to be available shortly;
-             *                 and AVAILABLE if the provider is currently available.
-             * @param extras   Bundle: an optional Bundle which will contain
-             *                 provider specific status variables.
-             *//*
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            *//**
-             * Called when the provider is enabled by the user.
-             *
-             * @param provider String: the name of the location provider associated with this update.
-             *//*
-            public void onProviderEnabled(String provider) {
-            }
-
-            *//**
-             * Called when the provider is disabled by the user.
-             * If requestLocationUpdates is called on an already disabled provider,
-             * this method is called immediately.
-             *
-             * @param provider String: the name of the location provider associated with this update.
-             *//*
-            public void onProviderDisabled(String provider) {
-            }
-        };
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-    } // end method setupAutoLocationState*/
 
     /**
      * Sets a Spinner to display a list of state and territory abbreviations for selection.
@@ -201,7 +114,7 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-    } // end method setupStateSpinner
+    } // end method setupStateSpinner.
 
     /**
      * Sets up the Begin Building Holdings Button.
@@ -228,8 +141,8 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
                 // Create  intent for GetHoldingsActivity.
                 Intent intent = new Intent(GetLocationActivity.this, GetHoldingsActivity.class);
-                Spinner stateSpinner = (Spinner) findViewById(R.id.state_spinner);
-                intent.putExtra("state", stateSpinner.getSelectedItem().toString());
+                // send value of state to GetHoldingsActivity.
+                intent.putExtra("state", itemState);
                 // Execute intent.
                 startActivity(intent);
 
@@ -237,7 +150,7 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
 
         }); // end button.setOnClickListener
 
-    } // end method setupBeginBuildingHoldingsButton
+    } // end method setupBeginBuildingHoldingsButton.
 
     /**
      * Creates an ArrayList of Strings stateList containing state abbreviation data.
@@ -264,9 +177,12 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
         // A List of Strings containing state abbreviations.
         return stateList;
 
-    } // end method setStateList
+    } // end method setStateList.
 
     /**
+     * Initializes state field variable with item selected from Spinner.
+     * Displays Toast.
+     *
      * Callback method to be invoked when an item in this view has been selected.
      * This callback is invoked only when the newly selected position is different
      * from the previously selected position or if there was no selected item.
@@ -284,9 +200,9 @@ public class GetLocationActivity extends Activity implements AdapterView.OnItemS
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         // get the text of the item at selected position.
-        String item = parent.getItemAtPosition(position).toString();
+        itemState = parent.getItemAtPosition(position).toString();
         // display item text in a toast
-        Toast.makeText(GetLocationActivity.this, item + ": Selected", Toast.LENGTH_LONG).show();
+        Toast.makeText(GetLocationActivity.this, itemState + ": Selected", Toast.LENGTH_LONG).show();
 
     } // end method onItemSelected.
 

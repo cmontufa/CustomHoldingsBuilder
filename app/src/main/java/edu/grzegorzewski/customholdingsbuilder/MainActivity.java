@@ -1,4 +1,5 @@
 package edu.grzegorzewski.customholdingsbuilder;
+
 /* ITMD-555 Android App Development
  * Dennis Grzegorzewski
  * Christopher Montufar
@@ -24,7 +25,10 @@ import java.io.File;
 import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 
 /**
- * TODO Class description.
+ * Determines if a database exits already.
+ * Gets uer input to create new custom holdings,
+ * to continue to create an unfinished custom holdings,
+ * or to overwrite an existing custom holdings.
  *
  * @author Dennis Grzegorzewski.
  * @version 1.0, 11/23/2016
@@ -53,26 +57,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("onCreate()", "onCreate executed.");
+
         // Comment this out. creates the the file for testing.
         //
         // Comment this out. deletes the database for testing.
-        //this.deleteDatabase("CustomHoldingsDB");
+        //this.deleteDatabase("OclcDB");
 
         // Set up action for Create New Button.
         setupCreateNewButton();
         // Set up action for Continue Button.
         setupContinueButton();
 
+        // Comment this out. For testing skip to...
+        //startGetLocationActivity();
+        // Comment this out. For testing skip to...
+        //startGetHoldingsActivity();
+
     } // end method onCreate.
 
     /**
-     * Executes when thr activity brcomrs hidden.
+     * Executes when the activity becomes hidden.
      *
      * @since 1.0
      */
     @Override
     protected void onStop() {
         super.onStop();
+        Log.i("onStop()", "?");
     }
 
     /**
@@ -95,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("onResume()", "?");
 
 
     } // end method onResume.
@@ -107,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("onDestroy()", "?");
     } //end method onDestroy.
 
     /**
@@ -131,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
             // If Previous Holdings exist, launch a warning dialog.
-            File dbFile = new File("CustomHoldingsDB");
+            File dbFile = new File("OclcDB");
             if (dbFile.exists()) {
                 Log.d("setupCreateNewButton", "database exists.");
                 // Create a dialog.
@@ -146,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
             } // end method onClick.
 
         }); // end button.setOnClickListener
+
+        Log.d("setupCreateNewButton()", "Create New Button is set up.");
 
     } // end method setupCreateNewButton.
 
@@ -171,14 +187,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // If No Previous Holdings exist, launch a warning dialog.
-                File dbFile = new File("CustomHoldingsDB");
+                File dbFile = new File("OclcDB");
                 if ( !dbFile.exists()) {
-                    Log.d("setupCreateNewButton", "database does not exist.");
+                    Log.d("setupContinueNewButton", "database does not exist.");
                     // Create a dialog.
                     createNoPreviousHoldingsDialog();
                 } //end if.
                 else {
-                    Log.d("setupCreateNewButton", "database exists.");
+                    Log.d("setupContinueNewButton", "database exists.");
                     // Continue to previous holdings.
                     startGetHoldingsActivity();
                 } //end else.
@@ -186,6 +202,8 @@ public class MainActivity extends AppCompatActivity {
             } // end method onClick.
 
         }); // end button.setOnClickListener.
+
+        Log.d("setupContinueButton()", "Continue Button is set up.");
 
     } // end method setupContinueButton.
 
@@ -198,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create  intent for GetLocationActivity.
         Intent intent = new Intent(MainActivity.this, GetLocationActivity.class);
+        Log.d("startGetLocationActvty", "Launch GetLocationActivity");
         // Execute intent.
         startActivity(intent);
 
@@ -212,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create  intent for GetHoldingsActivity.
         Intent intent = new Intent(MainActivity.this, GetHoldingsActivity.class);
+        Log.d("startGetHoldingsActvty", "Launch GetHoldingsActivity");
         // Execute intent.
         startActivity(intent);
 
@@ -262,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        Log.d("createPreviousHldngsDlg", "Set up.");
+
     } // end method createPreviousHoldingsDialog.
 
     /**
@@ -308,6 +330,8 @@ public class MainActivity extends AppCompatActivity {
         // Create an AlertDialog with the arguments supplied to this builder.
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        Log.d("createNoPrevsHldgsDlg", "Set up.");
 
     } // end method createNoPreviousHoldingsDialog.
 
