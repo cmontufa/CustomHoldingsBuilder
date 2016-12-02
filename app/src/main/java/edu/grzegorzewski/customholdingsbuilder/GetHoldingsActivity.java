@@ -17,7 +17,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 import edu.grzegorzewski.customholdingsbuilder.services.OclcIntentService;
 
@@ -49,6 +53,10 @@ public class GetHoldingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_holdings);
 
+        //
+        setupContinueProcessingButton();
+
+        //
         IntentFilter filter = new IntentFilter(OclcIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         receiver = new OclcIntentServiceReceiver();
@@ -135,14 +143,57 @@ public class GetHoldingsActivity extends Activity {
 
             // Find the state label.
             TextView stateLabel = (TextView) findViewById(textViewId);
+            TextView status = (TextView) findViewById(R.id.textViewStatus);
+            TextView processButton = (TextView) findViewById(R.id.button_continue_to_process);
 
             // Change the background and text color.
             stateLabel.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.state_border_on));
             stateLabel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight));
             //Toast.makeText(GetHoldingsActivity.this, "State Completed: " + intent.getStringExtra(OclcIntentService.BROADCAST_RESPONSE_STRING), Toast.LENGTH_LONG).show();
 
+            if (Objects.equals(processedState, "WY")) {
+                status.setText(R.string.finished);
+                status.setVisibility(View.INVISIBLE);
+                processButton.setVisibility(View.VISIBLE);
+            }
         } //end method onReceive.
 
     } //end class OclcIntentServiceReceiver.
+
+    /**
+     * Sets up the Begin Building Holdings Button.
+     *
+     * @since 1.0
+     */
+    private void setupContinueProcessingButton() {
+
+        // Get button resource.
+        Button button = (Button) findViewById(R.id.button_continue_to_process);
+        // Create button listener.
+        button.setOnClickListener( new View.OnClickListener() {
+
+            /**
+             * Execute on Begin Building Holdings button click.
+             *
+             * @param view - the view to set OnClickListener
+             * @since 1.0
+             */
+            @Override
+            public void onClick(View view) {
+
+                // Launch GetHoldingsActivity.
+
+                // Create  intent for GetHoldingsActivity.
+                Intent intent = new Intent(GetHoldingsActivity.this, ProcessListActivity.class);
+                // send value of state to GetHoldingsActivity.
+                //intent.putExtra("state", itemState);
+                // Execute intent.
+                startActivity(intent);
+
+            } // end method onClick.
+
+        }); // end button.setOnClickListener
+
+    } // end method setupContinueProcessingButton.
 
 } // end class GetHoldingsActivity

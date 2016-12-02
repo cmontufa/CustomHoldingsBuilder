@@ -1,8 +1,4 @@
-<!-- ITMD-555 Android App Development -->
-<!-- Dennis Grzegorzewski -->
-<!-- Christopher Montufar -->
-<!-- Final Project -->
-<!-- Due: 12/05/2016 -->
+<!-- ITMD-555 Android App Development --><!-- Dennis Grzegorzewski --><!-- Christopher Montufar --><!-- Final Project --><!-- Due: 12/05/2016 -->
 <resources>
     <string name="app_name">Custom Holdings Builder</string>
     <string name="welcome_text">Creates and Edits Custom Holdings Paths and Groups for OCLC Interlibrary Loan Transactions.</string>
@@ -71,5 +67,7 @@
     <string name="wi">WI</string>
     <string name="wv">WV</string>
     <string name="wy">WY</string>
-    <string name="processing">Processing...</string>
+    <string name="processing">Downloading OCLC Data</string>
+    <string name="finished">Finished</string>
+    <string name="continue_to_create_lists">Continue to Create Lists</string>
 </resources>
