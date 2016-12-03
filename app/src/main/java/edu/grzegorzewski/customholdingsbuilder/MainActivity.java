@@ -6,13 +6,9 @@ package edu.grzegorzewski.customholdingsbuilder;
  * Due: 12/05/2016
  */
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,8 +16,6 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.File;
-
-import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 
 /**
  * TODO Class description.
@@ -32,14 +26,9 @@ import edu.grzegorzewski.customholdingsbuilder.services.impl.OclcService;
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity mainActivityInstance;
-    private static OclcService oclcService;
-    private Boolean oclcServiceBounded = false;
 
     public static MainActivity getInstance() {
         return mainActivityInstance;
-    }
-    public static OclcService getOclcService() {
-        return oclcService;
     }
     /**
      * Executes when activity starts.
@@ -83,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        bindService(new Intent(this, OclcService.class), oclcServiceConnection, BIND_AUTO_CREATE);
-        Log.i("onStart()", "Service Started");
     }
 
     /**
@@ -95,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     } // end method onResume.
 
     /**
@@ -310,21 +295,4 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
     } // end method createNoPreviousHoldingsDialog.
-
-    ServiceConnection oclcServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            oclcServiceBounded = true;
-            OclcService.LocalBinder mLocalBinder = (OclcService.LocalBinder)service;
-            oclcService = mLocalBinder.getServerInstance();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            oclcServiceBounded = false;
-            oclcService = null;
-        }
-    };
-
 } // end class MainActivity.
