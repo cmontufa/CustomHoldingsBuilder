@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -62,12 +64,12 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
     /**
      * Override this method to perform a computation on a background thread. .
      *
-     * @param urls TODO description.
+     * @param params TODO description.
      * @return - TODO description.
      * @since 1.0
      */
     @Override
-    protected List<Institution> doInBackground(String... urls) {
+    protected List<Institution> doInBackground(String... params) {
 
         // TODO description.
         List<Institution> institutions = new ArrayList<>();
@@ -82,7 +84,7 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
             Document doc = null;
 
             // TODO description.
-            doc = db.parse(new URL(urls[0]).openStream());
+            doc = db.parse(new URL(params[0]).openStream());
             doc.getDocumentElement().normalize();
 
             //Integer totalSearchResults = Integer.parseInt(doc.getElementsByTagName(TOTAL_SEARCH_RESULTS).item(0).getTextContent());
@@ -113,7 +115,6 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
                 String institutionLocation = eElement.getElementsByTagName(OCLC_INSTITUTION_LOCATION_ELEMENT).item(0).getTextContent();
                 String institutionLoanFees = eElement.getElementsByTagName(OCLC_INSTITUTION_LOAN_FEES_ELEMENT).item(0).getTextContent();
                 String institutionCopyFees = eElement.getElementsByTagName(OCLC_INSTITUTION_COPY_FEES_ELEMENT).item(0).getTextContent();
-                String institutionSearchParams = eElement.getElementsByTagName(OCLC_INSTITUTION_SEARCH_PARAMS_ELEMENT).item(0).getTextContent();
 
                 // TODO description.
                 System.out.println("institutionName: " + institutionName);
@@ -128,9 +129,11 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
                 institution.setSymbol(institutionSymbol);
                 institution.setCountry(institutionCountry);
                 institution.setLocation(institutionLocation);
-                institution.setLoanFees(institutionLoanFees);
-                institution.setCopyFees(institutionCopyFees);
-                institution.setSearchParams(institutionSearchParams);
+                institution.setLoanFees(getExtractedFeeValue(institutionLoanFees));
+                institution.setCopyFees(getExtractedFeeValue(institutionCopyFees));
+                institution.setSourceState(params[1]);
+                institution.setTargetState(params[2]);
+                institution.setZone(Integer.valueOf(params[3]));
 
                 // TODO description.
                 institutions.add(institution);
@@ -143,6 +146,20 @@ public class OclCSearchResultsTask extends AsyncTask<String, Void, List<Institut
         } // end catch.
 
         return institutions;
+    }
+
+    private Float getExtractedFeeValue(String stringToExtract) {
+        //Need to use Regular Expressions to extract the fee without the currency code
+        String pattern = "^(\\d+\\.\\d+)(.*)";
+        Pattern patternObject = Pattern.compile(pattern);
+
+        Matcher matcher = patternObject.matcher(stringToExtract);
+
+        if (matcher.find()) {
+            return Float.valueOf(matcher.group(1));
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -30,7 +30,7 @@ import edu.grzegorzewski.customholdingsbuilder.services.impl.OclCSearchResultsTa
  */
 public class OclcIntentService extends IntentService {
 
-    OclcDao oclcDao = new OclcDao(MainActivity.getInstance());
+    OclcDao oclcDao = new OclcDao(GetHoldingsActivity.getInstance());
 
     //Example of the URL for search params of state:MA AND state:OH AND supplier:Y
     private static final String OCLC_URL = "https://ill.sd00.worldcat.org/illpolicies/institutionsearch";
@@ -82,13 +82,11 @@ public class OclcIntentService extends IntentService {
         for (Pair stateZonePair : stateZoneList) {
             // Build URL for API calls
             String apiUrlCall = buildUrlForAPI((String) stateZonePair.first);
-            // TODO descripton.
-            String searchParams = buildSearchParams((String) stateZonePair.first);
 
             Log.i("Running for URL: ", apiUrlCall);
 
             // TODO descripton.
-            retrieveAndParseOclc(apiUrlCall, searchParams, true);
+            retrieveAndParseOclc(apiUrlCall, state, (String) stateZonePair.first, String.valueOf((Integer) stateZonePair.second), false);
             // TODO descripton.
             Intent broadcastIntent = new Intent();
             // TODO descripton.
@@ -128,40 +126,25 @@ public class OclcIntentService extends IntentService {
     /**
      * TODO Method descripton.
      *
-     * @param toState TODO descripton.
-     * @return - TODO descripton.
-     * @since 1.0
-     */
-    private String buildSearchParams(String toState) {
-
-        return String.format(OCLC_SEARCH_QUERY_TEMPLATE,
-                //fromState,
-                //OCLC_AND_VALUE_WITH_SPACES,
-                toState,
-                OCLC_AND_VALUE_WITH_SPACES,
-                "Y");
-
-    } // end method buildSearchParams.
-
-    /**
-     * TODO Method descripton.
-     *
      * @param url TODO descripton.
-     * @param searchParams TODO descripton.
+     * @param sourceState TODO descripton.
      * @param forceUpdate TODO descripton.
      * @return - TODO descripton.
      * @since 1.0
      */
-    public List<Institution> retrieveAndParseOclc(String url, String searchParams, Boolean forceUpdate) {
+    public List<Institution> retrieveAndParseOclc(String url, String sourceState, String targetState, String zone, Boolean forceUpdate) {
+
+        String params[] = new String[]{url, sourceState, targetState, zone};
 
         // TODO descripton.
-        List<Institution> institutions = oclcDao.getAllInstitutionsBySearchParams(searchParams);
+        List<Institution> institutions = oclcDao.getAllInstitutionsBySourceAndTargetState(sourceState, targetState);
 
         // TODO descripton.
         if (institutions.isEmpty() || forceUpdate) {
             try {
                 // TODO descripton.
-                institutions = new OclCSearchResultsTask().execute(url).get();
+
+                institutions = new OclCSearchResultsTask().execute(params).get();
                 for (Institution institution : institutions) {
                     oclcDao.addInstitution(institution);
                 }

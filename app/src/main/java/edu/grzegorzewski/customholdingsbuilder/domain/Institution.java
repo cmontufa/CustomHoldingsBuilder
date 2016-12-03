@@ -15,9 +15,11 @@ public class Institution {
     private String symbol;
     private String country;
     private String location;
-    private String loanFees;
-    private String copyFees;
-    private String searchParams;
+    private Float loanFees;
+    private Float copyFees;
+    private String sourceState;
+    private String targetState;
+    private Integer zone;
 
     public String getName() {
         return name;
@@ -99,28 +101,44 @@ public class Institution {
         this.location = location;
     }
 
-    public String getLoanFees() {
+    public Float getLoanFees() {
         return loanFees;
     }
 
-    public void setLoanFees(String loanFees) {
+    public void setLoanFees(Float loanFees) {
         this.loanFees = loanFees;
     }
 
-    public String getCopyFees() {
+    public Float getCopyFees() {
         return copyFees;
     }
 
-    public void setCopyFees(String copyFees) {
+    public void setCopyFees(Float copyFees) {
         this.copyFees = copyFees;
     }
 
-    public String getSearchParams() {
-        return searchParams;
+    public String getSourceState() {
+        return sourceState;
     }
 
-    public void setSearchParams(String searchParams) {
-        this.searchParams = searchParams;
+    public void setSourceState(String sourceState) {
+        this.sourceState = sourceState;
+    }
+
+    public String getTargetState() {
+        return targetState;
+    }
+
+    public void setTargetState(String targetState) {
+        this.targetState = targetState;
+    }
+
+    public Integer getZone() {
+        return zone;
+    }
+
+    public void setZone(Integer zone) {
+        this.zone = zone;
     }
 
     @Override
@@ -128,7 +146,8 @@ public class Institution {
         return "Institution [instituion_id=" + id + ", name=" + name + ", supplier="
                 + supplier  + ", days_to_respond=" + daysToRespond  + ", loan_days_to_respond=" + loanDaysToRespond +
                 ", copy_days_to_respond=" + copyDaysToRespond  + ", symbol=" + symbol  + ", country=" + country +
-                ", location=" + location  + ", loan_fees=" + loanFees  + ", copy_fees=" + copyFees  + ", search_params=" + searchParams +"]";
+                ", location=" + location  + ", loan_fees=" + loanFees  + ", copy_fees=" + copyFees  + ", source_state=" + sourceState +
+                ", zone=" + zone + "]";
     }
 
 }

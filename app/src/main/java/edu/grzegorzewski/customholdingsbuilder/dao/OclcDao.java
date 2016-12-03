@@ -32,11 +32,12 @@ public class OclcDao extends SQLiteOpenHelper {
      */
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "OclcDB";
     // OCLC table name
     private static final String TABLE_OCLC_SEARCH_RESULTS = "OCLC_SEARCH_RESULTS";
+    private static final String TABLE_OCLC_HOLDINGS_LIST = "OCLC_HOLDINGS_LIST";
     // OCLC Search Results Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_INSTITUTION_ID = "institution_id";
@@ -50,7 +51,9 @@ public class OclcDao extends SQLiteOpenHelper {
     private static final String KEY_LOCATION = "location";
     private static final String KEY_LOAN_FEES = "loan_fees";
     private static final String KEY_COPY_FEES = "copy_fees";
-    private static final String KEY_SEARCH_PARAMS = "search_params";
+    private static final String KEY_SOURCE_STATE = "source_state";
+    private static final String KEY_TARGET_STATE = "target_state";
+    private static final String KEY_ZONE = "zone";
 
     /*
      * Constructors.
@@ -83,7 +86,7 @@ public class OclcDao extends SQLiteOpenHelper {
                 "institution_id TEXT, " + "supplier TEXT, " + "days_to_respond TEXT, " +
                 "loan_days_to_respond TEXT, " + "copy_days_to_respond TEXT, " + "symbol TEXT, "+
                 "country TEXT, " + "location TEXT, " + "loan_fees REAL, " +
-                "copy_fees REAL, " + "search_params TEXT) ";
+                "copy_fees REAL, " + "source_state TEXT, " + "target_state TEXT, " + "zone TEXT) ";
 
         db.execSQL(CREATE_OCLC_SEARCH_RESULTS_TABLE);
 
@@ -116,7 +119,7 @@ public class OclcDao extends SQLiteOpenHelper {
      */
     public void addInstitution(Institution institution) {
 
-        Log.d("addInstitution", institution.toString());
+        //Log.d("addInstitution", institution.toString());
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -131,10 +134,13 @@ public class OclcDao extends SQLiteOpenHelper {
         values.put(KEY_LOCATION, institution.getLocation());
         values.put(KEY_LOAN_FEES, institution.getLoanFees());
         values.put(KEY_COPY_FEES, institution.getCopyFees());
-        values.put(KEY_SEARCH_PARAMS, institution.getSearchParams());
+        values.put(KEY_SOURCE_STATE, institution.getSourceState());
+        values.put(KEY_TARGET_STATE, institution.getTargetState());
+        values.put(KEY_ZONE, institution.getZone());
 
         //Verify if institution already exists before adding
-        Institution persistedBook = getInstitutionBySearchParamsAndInstitutionId(institution.getSearchParams(), institution.getInstitutionId());
+        Institution persistedBook = getInstitutionBySourceStateAndInstitutionId(institution.getSourceState(),
+                institution.getTargetState(), institution.getInstitutionId());
 
         if (persistedBook == null) {
             db.insert(TABLE_OCLC_SEARCH_RESULTS,
@@ -149,23 +155,24 @@ public class OclcDao extends SQLiteOpenHelper {
     /**
      * TODO Method description.
      *
-     * @param searchParams TODO description.
+     * @param sourceState TODO description.
      * @param institutionId TODO description.
      * @return - TODO description.
      * @since 1.0
      */
-    private Institution getInstitutionBySearchParamsAndInstitutionId(String searchParams, String institutionId) {
+    private Institution getInstitutionBySourceStateAndInstitutionId(String sourceState, String targetState, String institutionId) {
 
         /*
          * Declare and initialize local variables.
          */
 
-        Log.d("getInstSearchParams - ", searchParams);
+        Log.d("getInstSearchParams - ", sourceState);
 
         // not used.
         List<Institution> institutions = new LinkedList<>();
 
-        String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where search_params = '" + searchParams + "' AND institution_id = '" + institutionId + "'";
+        String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState +
+                "' AND target_state = '" + targetState + "' AND institution_id = '" + institutionId + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -184,9 +191,11 @@ public class OclcDao extends SQLiteOpenHelper {
             institution.setSymbol(cursor.getString(7));
             institution.setCountry(cursor.getString(8));
             institution.setLocation(cursor.getString(9));
-            institution.setLoanFees(cursor.getString(10));
-            institution.setCopyFees(cursor.getString(11));
-            institution.setSearchParams(cursor.getString(12));
+            institution.setLoanFees(cursor.getFloat(10));
+            institution.setCopyFees(cursor.getFloat(11));
+            institution.setSourceState(cursor.getString(12));
+            institution.setTargetState(cursor.getString(13));
+            institution.setZone(cursor.getInt(14));
         } // end if.
 
         cursor.close();
@@ -194,18 +203,86 @@ public class OclcDao extends SQLiteOpenHelper {
 
     } //end method getInstitutionBySearchParamsAndInstitutionId.
 
+
+    public Integer getInstitutionCount(String query) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        int rowCount = 0;
+
+        if (cursor.moveToFirst()) {
+            rowCount = cursor.getInt(0);
+        }
+        return rowCount;
+    }
+
+    public Integer getBookFreeCount(String sourceState, Integer zone) {
+        String book_free_count_query = "SELECT count(*) FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND loan_fees = 0 AND zone = " + zone;
+        return getInstitutionCount(book_free_count_query);
+    }
+
+    public Integer getBookPayCount(String sourceState, Integer zone) {
+        String book_pay_count_query = "SELECT count(*) FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND loan_fees > 0 AND zone = " + zone;
+        return getInstitutionCount(book_pay_count_query);
+    }
+
+    public Integer getARFreeCount(String sourceState, Integer zone) {
+        String ar_free_count_query = "SELECT count(*) FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND copy_fees = 0 AND zone = " + zone;
+        return getInstitutionCount(ar_free_count_query);
+    }
+
+    public Integer getARPayCount(String sourceState, Integer zone) {
+        String ar_pay_count_query = "SELECT count(*) FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND copy_fees > 0 AND zone = " + zone;
+        return getInstitutionCount(ar_pay_count_query);
+    }
+
+    public List<Institution> getAllInstitutionsBySourceAndTargetState(String sourceState, String targetState) {
+        String select_query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState +
+                "' AND target_state = '" + targetState + "'";
+        return getAllInstitutions(select_query);
+    }
+
+    public List<Institution> getBookFreeInstitutionsBySourceStateAndZone(String sourceState, Integer zone) {
+        String book_free_query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND loan_fees = 0 AND zone = " + zone;
+        return getAllInstitutions(book_free_query);
+    }
+
+    public List<Institution> getBookPayInstitutionsBySourceStateAndZone(String sourceState, Integer zone) {
+        String book_pay_query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND loan_fees > 0 AND zone = " + zone;
+        return getAllInstitutions(book_pay_query);
+    }
+
+    public List<Institution> getARFreeInstitutionsBySourceStateAndZone(String sourceState, Integer zone) {
+        String ar_free_query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND copy_fees = 0 AND zone = " + zone;
+        return getAllInstitutions(ar_free_query);
+    }
+
+    public List<Institution> getARPayInstitutionsBySourceStateAndZone(String sourceState, Integer zone) {
+        String ar_pay_query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where source_state = '" + sourceState + "' " +
+                "AND copy_fees > 0 AND zone = " + zone;
+        return getAllInstitutions(ar_pay_query);
+    }
+
     /**
      * TODO Method description.
      *
-     * @param searchParams TODO description.
+     * @param query TODO description.
      * @return - TODO description.
      * @since 1.0
      */
-    public List<Institution> getAllInstitutionsBySearchParams(String searchParams) {
+    public List<Institution> getAllInstitutions(String query) {
 
         List<Institution> institutions = new LinkedList<>();
 
-        String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS + " where search_params = '" + searchParams + "'";
+        //
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -225,9 +302,11 @@ public class OclcDao extends SQLiteOpenHelper {
                 institution.setSymbol(cursor.getString(7));
                 institution.setCountry(cursor.getString(8));
                 institution.setLocation(cursor.getString(9));
-                institution.setLoanFees(cursor.getString(10));
-                institution.setCopyFees(cursor.getString(11));
-                institution.setSearchParams(cursor.getString(12));
+                institution.setLoanFees(cursor.getFloat(10));
+                institution.setCopyFees(cursor.getFloat(11));
+                institution.setSourceState(cursor.getString(12));
+                institution.setTargetState(cursor.getString(13));
+                institution.setZone(cursor.getInt(14));
 
                 institutions.add(institution);
             } while (cursor.moveToNext());
@@ -262,7 +341,9 @@ public class OclcDao extends SQLiteOpenHelper {
         values.put(KEY_LOCATION, institution.getLocation());
         values.put(KEY_LOAN_FEES, institution.getLoanFees());
         values.put(KEY_COPY_FEES, institution.getCopyFees());
-        values.put(KEY_SEARCH_PARAMS, institution.getSearchParams());
+        values.put(KEY_SOURCE_STATE, institution.getSourceState());
+        values.put(KEY_TARGET_STATE, institution.getTargetState());
+        values.put(KEY_ZONE, institution.getZone());
 
         int i = db.update(TABLE_OCLC_SEARCH_RESULTS,
                 values,

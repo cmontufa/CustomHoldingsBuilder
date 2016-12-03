@@ -37,8 +37,12 @@ public class GetHoldingsActivity extends AppCompatActivity {
     /*
      * Declare class variables
      */
+    private static GetHoldingsActivity getHoldingsActivityInstance;
+    public static GetHoldingsActivity getInstance() {
+        return getHoldingsActivityInstance;
+    }
     private OclcIntentServiceReceiver receiver;
-
+    private String sourceState;
     /*
      * Methods.
      */
@@ -51,6 +55,7 @@ public class GetHoldingsActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getHoldingsActivityInstance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_holdings);
 
@@ -66,10 +71,10 @@ public class GetHoldingsActivity extends AppCompatActivity {
         //Intent passed in
         Intent thisIntent = this.getIntent();
 
-        String state = thisIntent.getStringExtra("state");
+        sourceState = thisIntent.getStringExtra("state");
 
         Intent msgIntent = new Intent(GetHoldingsActivity.this, OclcIntentService.class);
-        msgIntent.putExtra("state", state);
+        msgIntent.putExtra("state", sourceState);
         startService(msgIntent);
 
     } // end method onCreate.
@@ -187,7 +192,7 @@ public class GetHoldingsActivity extends AppCompatActivity {
                 // Create  intent for GetHoldingsActivity.
                 Intent intent = new Intent(GetHoldingsActivity.this, ProcessListActivity.class);
                 // send value of state to GetHoldingsActivity.
-                //intent.putExtra("state", itemState);
+                intent.putExtra("state", sourceState);
                 // Execute intent.
                 startActivity(intent);
 

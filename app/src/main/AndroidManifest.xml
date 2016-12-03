@@ -41,8 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".services.impl.OclcService" />
         <service android:name=".services.OclcIntentService" />
 
         <activity android:name=".DisplayListActivity">
