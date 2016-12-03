@@ -10,6 +10,7 @@ package edu.grzegorzewski.customholdingsbuilder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Dennis Grzegorzewski.
  * @version 1.0, 11/23/2016
  */
-public class GetLocationActivity extends Activity implements AdapterView.OnItemSelectedListener {
+public class GetLocationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     /*
      * Declare class variables

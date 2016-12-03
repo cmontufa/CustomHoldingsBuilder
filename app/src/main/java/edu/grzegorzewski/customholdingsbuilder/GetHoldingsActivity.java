@@ -17,6 +17,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ import edu.grzegorzewski.customholdingsbuilder.services.OclcIntentService;
  * @author Christopher Montufar.
  * @version 1.0, 12/01/2016.
  */
-public class GetHoldingsActivity extends Activity {
+public class GetHoldingsActivity extends AppCompatActivity {
 
     /*
      * Declare class variables
@@ -152,7 +153,7 @@ public class GetHoldingsActivity extends Activity {
             //Toast.makeText(GetHoldingsActivity.this, "State Completed: " + intent.getStringExtra(OclcIntentService.BROADCAST_RESPONSE_STRING), Toast.LENGTH_LONG).show();
 
             if (Objects.equals(processedState, "WY")) {
-                status.setText(R.string.finished);
+                //status.setText(R.string.finished);
                 status.setVisibility(View.INVISIBLE);
                 processButton.setVisibility(View.VISIBLE);
             }
