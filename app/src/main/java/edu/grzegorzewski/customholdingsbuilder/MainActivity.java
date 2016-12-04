@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
                 public void onClick(DialogInterface dialog, int id) {
                     // start new holdings
+                    getApplicationContext().deleteDatabase("OclcDB");
                     startGetLocationActivity();
                 } // end method onClick
         });
