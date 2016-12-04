@@ -100,6 +100,15 @@ public class GetHoldingsActivity extends AppCompatActivity {
         super.onResume();
     } //end method onResume.
 
+    @Override
+    protected void onStop() {
+        if (receiver!=null) {
+            unregisterReceiver(receiver);
+            receiver=null;
+        }
+        super.onStop();
+    }
+
     /**
      * TODO Method description.
      *
