@@ -46,26 +46,28 @@ public class ProcessListActivity extends AppCompatActivity {
         // TODO descripton.
         List<Pair> stateZoneList = stateZone.getStateZones();
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setAdapter(createArrayAdapter(state));
+        ListView listView = (ListView) findViewById(R.id.list_view_holdings);
+        listView.setAdapter(createArrayAdapter(state));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String value = parent.getItemAtPosition(position).toString();
                 String splitValue[] = value.split(" ");
-                ListView listView = (ListView) findViewById(R.id.list_view_holdings);
-
-                ArrayAdapter adapter = new ArrayAdapter(ProcessListActivity.getInstance(), R.layout.simple_spinner_layout, getSymbolsList(state, splitValue[0]));
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                List<String> symbols = getSymbolsList(state, splitValue[0]);
+                StringBuilder symbolsStringBuilder = new StringBuilder();
+                for (String symbol : symbols) {
+                    symbolsStringBuilder.append(symbol)
+                            .append(" ");
+                }
+                // Create  intent for GetHoldingsActivity.
+                Intent displayListActivityIntent = new Intent(ProcessListActivity.this, DisplayListActivity.class);
+                // send value of state to GetHoldingsActivity.
+                displayListActivityIntent.putExtra("symbols", symbolsStringBuilder.toString());
+                // Execute intent.
+                startActivity(displayListActivityIntent);
             }
         });
-
     }
 
     private List<String> getSymbolsList(String sourceState, String spinnerSelectedValue) {
