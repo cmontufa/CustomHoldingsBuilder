@@ -10,6 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.grzegorzewski.customholdingsbuilder.DisplayListActivity">
 
+    <ScrollView android:id="@+id/textViewScroller"
+        android:layout_width="fill_parent"
+        android:layout_height="173px"
+        android:layout_x="0px"
+        android:layout_y="25px"
+        android:scrollbars="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true">
+
     <TextView
         android:text="Holdings List"
         android:layout_width="wrap_content"
@@ -22,20 +31,11 @@
         android:scrollbars="vertical"
         android:soundEffectsEnabled="true"
         android:verticalScrollbarPosition="defaultPosition" />
+    </ScrollView>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:id="@+id/spinner"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/list_view_holdings"
-        android:layout_below="@+id/spinner"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/list_view_process"-->
+        <!--android:layout_alignParentStart="true" />-->
 </RelativeLayout>
