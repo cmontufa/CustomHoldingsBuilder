@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
             // If Previous Holdings exist, launch a warning dialog.
-            File dbFile = new File("OclcDB");
-            if (dbFile.exists()) {
+            File database = getApplicationContext().getDatabasePath("OclcDB");
+            if (database.exists()) {
                 Log.d("setupCreateNewButton", "database exists.");
                 // Create a dialog.
                 createPreviousHoldingsDialog();
@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // If No Previous Holdings exist, launch a warning dialog.
-                File dbFile = new File("OclcDB");
-                if ( !dbFile.exists()) {
+                File database = getApplicationContext().getDatabasePath("OclcDB");
+                if ( !database.exists()) {
                     Log.d("setupContinueNewButton", "database does not exist.");
                     // Create a dialog.
                     createNoPreviousHoldingsDialog();
