@@ -9,6 +9,8 @@ package edu.grzegorzewski.customholdingsbuilder.services;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
 
@@ -69,11 +71,18 @@ public class OclcIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+
+        OclcDao oclcDao = new OclcDao(OclcIntentService.this);
+        String dbState = oclcDao.getDBSourceState();
+
         // The from state
-        String state = intent.getStringExtra("state");
+        //String state = intent.getStringExtra("state");
+
+        SharedPreferences stateSetting = PreferenceManager.getDefaultSharedPreferences(OclcIntentService.this);
+        String sourceState = stateSetting.getString("sourceState", dbState);
 
         // TODO descripton.
-        StateZoneList stateZone = new StateZoneList(state);
+        StateZoneList stateZone = new StateZoneList(sourceState);
 
         // TODO descripton.
         List<Pair> stateZoneList = stateZone.getStateZones();
@@ -86,7 +95,7 @@ public class OclcIntentService extends IntentService {
             Log.i("Running for URL: ", apiUrlCall);
 
             // TODO descripton.
-            retrieveAndParseOclc(apiUrlCall, state, (String) stateZonePair.first, String.valueOf((Integer) stateZonePair.second), false);
+            retrieveAndParseOclc(apiUrlCall, sourceState, (String) stateZonePair.first, String.valueOf((Integer) stateZonePair.second), false);
             // TODO descripton.
             Intent broadcastIntent = new Intent();
             // TODO descripton.

@@ -139,10 +139,10 @@ public class OclcDao extends SQLiteOpenHelper {
         values.put(KEY_ZONE, institution.getZone());
 
         //Verify if institution already exists before adding
-        Institution persistedBook = getInstitutionBySourceStateAndInstitutionId(institution.getSourceState(),
+        Institution persistedInstitution = getInstitutionBySourceStateAndInstitutionId(institution.getSourceState(),
                 institution.getTargetState(), institution.getInstitutionId());
 
-        if (persistedBook == null) {
+        if (persistedInstitution == null) {
             db.insert(TABLE_OCLC_SEARCH_RESULTS,
                     null,
                     values);
@@ -214,6 +214,8 @@ public class OclcDao extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             rowCount = cursor.getInt(0);
         }
+
+        cursor.close();
         return rowCount;
     }
 
@@ -352,13 +354,51 @@ public class OclcDao extends SQLiteOpenHelper {
 
         db.close();
 
+        // the number of rows affected.
         return i;
+
     } // end method updateInstitution.
 
     /**
-     * TODO Method description.
+     * Gets the source state from the database.
      *
-     * @param institution TODO description.
+     * @return - String dbState: The source state from the first db record returned, or null if there are no records.
+     * @see #TABLE_OCLC_SEARCH_RESULTS The OCLC Search Results table name
+     * since 1.0
+     */
+    public String getDBSourceState() {
+
+        //
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Define a query to return the whole OCLC Search Results table from the database.
+        String query = "SELECT * FROM " + TABLE_OCLC_SEARCH_RESULTS;
+
+        // Get a cursor based on the query.
+        Cursor cursor = db.rawQuery(query, null);
+
+        // Set the default return value to null.
+        String dbState = null;
+
+        // Get the source state from the first record in the cursor,
+        // if there is one.
+        if (cursor.moveToFirst()) {
+            dbState = (cursor.getString(12));
+        } // end if.
+
+        // Release cursor resources.
+        cursor.close();
+
+        // The source state from the first record returned,
+        // or null if there are no records.
+        return dbState;
+
+    } // end method getDBSourceState.
+
+    /**
+     * Deletes Institution object record from the database.
+     *
+     * @param institution Institution object to delete from the database.
      * @since 1.0
      */
     public void deleteInstitution(Institution institution) {

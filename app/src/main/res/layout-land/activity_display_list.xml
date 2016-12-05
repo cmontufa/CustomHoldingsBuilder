@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ITMD-555 Android App Development -->
+<!-- Dennis Grzegorzewski -->
+<!-- Christopher Montufar -->
+<!-- Final Project -->
+<!-- Due: 12/05/2016 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_display_list"
@@ -11,15 +16,31 @@
     tools:context="edu.grzegorzewski.customholdingsbuilder.DisplayListActivity">
 
     <TextView
-        android:text="Holdings List"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView_holdings_list"
-        android:scrollHorizontally="false"
-        android:scrollbarStyle="insideInset"
+        android:id="@+id/textView_display_title"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary" />
+
+    <ScrollView
+        android:id="@+id/SCROLLER_ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_display_title"
         android:scrollbars="vertical"
-        android:soundEffectsEnabled="true"
-        android:verticalScrollbarPosition="defaultPosition" />
+        android:fillViewport="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_display_list"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars = "vertical"
+            android:soundEffectsEnabled="true"
+            android:verticalScrollbarPosition="defaultPosition"
+            android:keepScreenOn="true" />
+
+    </ScrollView>
+
 </RelativeLayout>

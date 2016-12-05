@@ -7,10 +7,14 @@ package edu.grzegorzewski.customholdingsbuilder;
  * Due: 12/05/2016
  */
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +25,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import edu.grzegorzewski.customholdingsbuilder.dao.OclcDao;
 
 /**
  * Displays a Spinner with a dropdown menu of US state and territory abbreviations,
@@ -34,29 +40,50 @@ import java.util.List;
 public class GetLocationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     /*
-     * Declare class variables
+     * Declare and initialize class variables
      */
-    private String itemState; // State selected from dropdown spinner.
+
+    private static GetLocationActivity getLocationActivityInstance;
+    private String stateItemSelected; // State selected from dropdown spinner.
+
+    /*
+     * Methods.
+     */
+
+    /**
+     * TODO Description.
+     *
+     * @return TODO Description.
+     */
+    public static GetLocationActivity getInstance() {
+        return getLocationActivityInstance;
+    } // end method getInstance.
 
     /**
      * Executes when activity starts.
      *
      * @param savedInstanceState - the saved activity state.
+     * @see #setupStateSpinner() TODO Description.
+     * @see #setupBeginBuildingHoldingsButton(String) TODO Description.
      * @since 1.0
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getLocationActivityInstance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_location);
+
+        OclcDao oclcDao = new OclcDao(GetLocationActivity.this);
+        String dbState = oclcDao.getDBSourceState();
 
         // Sets a Spinner to display a list of state and territory abbreviations for selection.
         setupStateSpinner();
 
         // Sets up the Begin Building Holdings Button.
-        // Launches GetHoldingsActivity.
-        setupBeginBuildingHoldingsButton();
+        // Which launches GetHoldingsActivity.
+        setupBeginBuildingHoldingsButton(dbState);
 
-    } // end method onCreate
+    } // end method onCreate.
 
     /**
      * Called when the activity is becoming visible to the user.
@@ -120,9 +147,13 @@ public class GetLocationActivity extends AppCompatActivity implements AdapterVie
     /**
      * Sets up the Begin Building Holdings Button.
      *
+     * @param dbState TODO Description.
+     * @see #stateItemSelected TODO Description.
+     * @see #startGetHoldingsActivity() TODO Description.
+     * @see #createStateMismatchDialog(String) TODO Description.
      * @since 1.0
      */
-    private void setupBeginBuildingHoldingsButton() {
+    private void setupBeginBuildingHoldingsButton(final String dbState) {
 
         // Get button resource.
         Button button = (Button) findViewById(R.id.button_begin_building);
@@ -140,12 +171,19 @@ public class GetLocationActivity extends AppCompatActivity implements AdapterVie
 
                 // Launch GetHoldingsActivity.
 
-                // Create  intent for GetHoldingsActivity.
-                Intent intent = new Intent(GetLocationActivity.this, GetHoldingsActivity.class);
-                // send value of state to GetHoldingsActivity.
-                intent.putExtra("state", itemState);
-                // Execute intent.
-                startActivity(intent);
+                // if the spinner selected state is different than database state.
+                if (!stateItemSelected.equals(dbState)&&(dbState != null)){
+                    //open a dialog and ask if you want to start a new database
+                    createStateMismatchDialog(dbState);
+                }
+
+                if (stateItemSelected == null) {
+                    pleaseSelectAStateDialog();
+                }
+                // change state in shared preferences.
+                setSharedPreferencesSourceState(stateItemSelected);
+                // Launch GetHoldingsActivity.
+                startGetHoldingsActivity();
 
             } // end method onClick.
 
@@ -201,9 +239,9 @@ public class GetLocationActivity extends AppCompatActivity implements AdapterVie
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         // get the text of the item at selected position.
-        itemState = parent.getItemAtPosition(position).toString();
+        stateItemSelected = parent.getItemAtPosition(position).toString();
         // display item text in a toast
-        Toast.makeText(GetLocationActivity.this, itemState + ": Selected", Toast.LENGTH_LONG).show();
+        Toast.makeText(GetLocationActivity.this, stateItemSelected + ": Selected", Toast.LENGTH_LONG).show();
 
     } // end method onItemSelected.
 
@@ -220,5 +258,133 @@ public class GetLocationActivity extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing.
     } //end method onNothingSelected.
+
+    /**
+     * Create warning dialog about overwriting previous custom holdings.
+     * Called when previous holding exist.
+     * On OK button calls startGetLocationActivity().
+     *
+     * @param dbState TODO Description.
+     * @see #stateItemSelected TODO Description.
+     * @see #setSharedPreferencesSourceState(String) TODO Description.
+     * @see #startGetHoldingsActivity() TODO Description.
+     * @since 1.0
+     */
+    void createStateMismatchDialog(final String dbState) {
+
+        // Create a builder for an alert dialog that uses the default alert dialog theme.
+        AlertDialog.Builder builder = new AlertDialog.Builder(GetLocationActivity.this);
+
+        // Set the title using the given resource id.
+        builder.setTitle("Previous Custom Holdings For " + dbState + "Exist");
+
+        // Set the message to display using the given resource id.
+        builder.setMessage("Are you sure you want to create new holdings for " + stateItemSelected +
+                ". Previous holdings for " + dbState + " will be lost.");
+
+        // Set a listener to be invoked when the positive button of the dialog is pressed.
+        builder.setPositiveButton(
+                R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if ok delete database and use this selected state.
+                        getApplicationContext().deleteDatabase("OclcDB");
+                        Log.d("PreviousHoldingsDialog", "Delete previous database");
+
+                        // change state in shared preferences.
+                        setSharedPreferencesSourceState(stateItemSelected);
+                        Log.d("SharedPreferences", "sourceState=" + stateItemSelected);
+
+                        //  Launch GetHoldingsActivity.
+                        startGetHoldingsActivity();
+                    } // end method onClick
+                });
+
+        // Set a listener to be invoked when the negative button of the dialog is pressed.
+        builder.setNegativeButton(
+                R.string.cancel,
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if cancel use database state.
+                        setSharedPreferencesSourceState(dbState);
+                        Log.d("SharedPreferences", "sourceState=" + dbState);
+                        // Cancel the dialog.
+                        dialog.cancel();
+                    } // end method onClick
+                });
+
+        // Create an AlertDialog with the arguments supplied to this builder.
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Log.d("createPreviousHldngsDlg", "Set up.");
+
+    } // end method createStateMismatchDialog.
+
+    /**
+     * Launch GetHoldingsActivity.
+     *
+     * @since 1.0
+     */
+    void startGetHoldingsActivity() {
+
+        // Create  intent for GetHoldingsActivity.
+        Intent intent = new Intent(GetLocationActivity.this, GetHoldingsActivity.class);
+        Log.d("startGetHoldingsActvty", "Launch GetHoldingsActivity");
+        // Execute intent.
+        startActivity(intent);
+
+    } // end method startGetHoldingsActivity.
+
+    /**
+     * TODO Description.
+     *
+     * @param state TODO Description.
+     * @since 1.0
+     */
+    public void setSharedPreferencesSourceState(String state) {
+
+        // Set source state in shared preferences.
+        SharedPreferences stateSetting = PreferenceManager.getDefaultSharedPreferences(GetLocationActivity.this);
+        SharedPreferences.Editor editor = stateSetting.edit();
+        editor.putString("sourceState", state);
+        // Commit the edits!
+        editor.apply();
+        Log.d("setSharePrefSourceState", "sourceState=" + state);
+
+    } // end method setSharedPreferencesSourceState.
+
+    public void pleaseSelectAStateDialog() {
+
+        // Create a builder for an alert dialog that uses the default alert dialog theme.
+        AlertDialog.Builder builder = new AlertDialog.Builder(GetLocationActivity.this);
+
+        // Set the title using the given resource id.
+        builder.setTitle("A Location Has Not Been Chosen");
+
+        // Set the message to display using the given resource id.
+        builder.setMessage("Please select a state.");
+
+        // Set a listener to be invoked when the positive button of the dialog is pressed.
+        builder.setPositiveButton(
+                R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Cancel the dialog.
+                        dialog.cancel();
+                    } // end method onClick
+                });
+
+
+        // Create an AlertDialog with the arguments supplied to this builder.
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Log.d("pleaseSelectStateDialog", "Set up.");
+
+    } // end method pleaseSelectAStateDialog.
 
 } // end class GetLocationActivity.

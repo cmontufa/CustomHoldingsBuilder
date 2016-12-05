@@ -9,7 +9,9 @@ package edu.grzegorzewski.customholdingsbuilder;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +19,8 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.File;
+
+import edu.grzegorzewski.customholdingsbuilder.dao.OclcDao;
 
 /**
  * Determines if a database exits already.
@@ -29,14 +33,25 @@ import java.io.File;
  */
 public class MainActivity extends AppCompatActivity {
 
+    /*
+     * Declare Class variables
+     */
+
     private static MainActivity mainActivityInstance;
+
+    /*
+     * Methods.
+     */
 
     public static MainActivity getInstance() {
         return mainActivityInstance;
     }
+
     /**
      * Executes when activity starts.
      *
+     * @see #setupContinueButton() TODO Description.
+     * @see #setupCreateNewButton() TODO Description.
      * @param savedInstanceState - the saved activity state.
      * @since 1.0
      */
@@ -48,10 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("onCreate()", "onCreate executed.");
 
-        // Comment this out. creates the the file for testing.
-        //
         // Comment this out. deletes the database for testing.
         //this.deleteDatabase("OclcDB");
+        //Log.d("onCreate()", "Database Deleted.");
 
         // Set up action for Create New Button.
         setupCreateNewButton();
@@ -66,17 +80,6 @@ public class MainActivity extends AppCompatActivity {
     } // end method onCreate.
 
     /**
-     * Executes when the activity becomes hidden.
-     *
-     * @since 1.0
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("onStop()", "?");
-    }
-
-    /**
      * Executes when activity starts.
      *
      * @since 1.0
@@ -84,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-    }
+        Log.i("onStart()", "onStart executed.");
+    } // end method onStart.
 
     /**
      * Executes when the activity will start interacting with the user, and is at the top of the activity stack
@@ -94,10 +98,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("onResume()", "?");
-
-
+        Log.i("onResume()", "onResume executed.");
     } // end method onResume.
+
+    /**
+     * Executes when the activity becomes hidden.
+     *
+     * @since 1.0
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("onStop()", "onStop executed.");
+    } // end method onStop.
 
     /**
      * Executes before your activity is destroyed
@@ -107,12 +120,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("onDestroy()", "?");
+        Log.i("onDestroy()", "onDestroy executed.");
     } //end method onDestroy.
 
     /**
      * Sets up the Create New Button.
      *
+     * @see #createPreviousHoldingsDialog() TODO Description.
+     * @see #startGetLocationActivity() TODO Description.
      * @since 1.0
      */
     private void setupCreateNewButton() {
@@ -155,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Sets up the Continue Button.
      *
+     * @see #createNoPreviousHoldingsDialog() TODO Description.
+     * @see #startGetHoldingsActivity() TODO Description.
      * @since 1.0
      */
     private void setupContinueButton() {
@@ -182,8 +199,23 @@ public class MainActivity extends AppCompatActivity {
                 } //end if.
                 else {
                     Log.d("setupContinueNewButton", "database exists.");
-                    // Continue to previous holdings.
-                    startGetHoldingsActivity();
+                    // Set source state in shared preferences to that in.
+                    OclcDao oclcDao = new OclcDao(MainActivity.this);
+                    if (oclcDao.getDBSourceState()==null) {
+                        Log.d("setupContinueNewButton", "sourceState is null");
+                        // Get state location.
+                        startGetLocationActivity();
+                    }
+                    else {
+                        SharedPreferences stateSetting = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        SharedPreferences.Editor editor = stateSetting.edit();
+                        editor.putString("sourceState", oclcDao.getDBSourceState());
+                        editor.apply();
+                        Log.d("SharedPreferences", "sourceState=" + oclcDao.getDBSourceState());
+                        // Continue to previous holdings.
+                        startGetHoldingsActivity();
+                    }
+
                 } //end else.
 
             } // end method onClick.
@@ -197,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch GetLocationActivity.
      *
+     * @see GetLocationActivity TODO Description.
      * @since 1.0
      */
     void startGetLocationActivity() {
@@ -212,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch GetHoldingsActivity.
      *
+     * @see GetHoldingsActivity TODO Description.
      * @since 1.0
      */
     void startGetHoldingsActivity() {
@@ -229,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
      * Called when previous holding exist.
      * On OK button calls startGetLocationActivity().
      *
-     * @see #startGetLocationActivity()
+     * @see #startGetLocationActivity() TODO Description.
      * @since 1.0
      */
     void createPreviousHoldingsDialog() {
@@ -251,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     // start new holdings
                     getApplicationContext().deleteDatabase("OclcDB");
+                    Log.d("PreviousHoldingsDialog", "Delete previous database");
                     startGetLocationActivity();
                 } // end method onClick
         });
@@ -279,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
      * Called when no previous holding exist for continuing.
      * On OK button calls startGetLocationActivity().
      *
-     * @see #startGetLocationActivity()
+     * @see #startGetLocationActivity() TODO Description.
      * @since 1.0
      */
     void createNoPreviousHoldingsDialog() {
@@ -322,4 +357,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d("createNoPrevsHldgsDlg", "Set up.");
 
     } // end method createNoPreviousHoldingsDialog.
+
 } // end class MainActivity.

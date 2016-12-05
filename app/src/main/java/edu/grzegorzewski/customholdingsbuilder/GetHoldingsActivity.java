@@ -12,7 +12,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
+import edu.grzegorzewski.customholdingsbuilder.dao.OclcDao;
 import edu.grzegorzewski.customholdingsbuilder.services.OclcIntentService;
 
 /**
@@ -37,15 +40,18 @@ public class GetHoldingsActivity extends AppCompatActivity {
     /*
      * Declare class variables
      */
+
     private static GetHoldingsActivity getHoldingsActivityInstance;
-    public static GetHoldingsActivity getInstance() {
-        return getHoldingsActivityInstance;
-    }
     private OclcIntentServiceReceiver receiver;
     private String sourceState;
+
     /*
      * Methods.
      */
+
+    public static GetHoldingsActivity getInstance() {
+        return getHoldingsActivityInstance;
+    }
 
     /**
      * Executes when activity starts.
@@ -59,19 +65,25 @@ public class GetHoldingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_holdings);
 
-        //
+
+        OclcDao oclcDao = new OclcDao(GetHoldingsActivity.this);
+        String dbState = oclcDao.getDBSourceState();
+
+        //TODO Description.
         setupContinueProcessingButton();
 
-        //
+        //TODO Description.
         IntentFilter filter = new IntentFilter(OclcIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         receiver = new OclcIntentServiceReceiver();
         registerReceiver(receiver, filter);
 
         //Intent passed in
-        Intent thisIntent = this.getIntent();
+        //Intent thisIntent = this.getIntent();
+       // sourceState = thisIntent.getStringExtra("state");
 
-        sourceState = thisIntent.getStringExtra("state");
+        SharedPreferences stateSetting = PreferenceManager.getDefaultSharedPreferences(GetHoldingsActivity.this);
+        String sourceState = stateSetting.getString("sourceState", dbState);
 
         Intent msgIntent = new Intent(GetHoldingsActivity.this, OclcIntentService.class);
         msgIntent.putExtra("state", sourceState);
@@ -142,8 +154,8 @@ public class GetHoldingsActivity extends AppCompatActivity {
         /**
          * TODO Method description.
          *
-         * @param context
-         * @param intent
+         * @param context TODO description.
+         * @param intent TODO description.
          * @since 1.0
          */
         @Override
@@ -166,11 +178,14 @@ public class GetHoldingsActivity extends AppCompatActivity {
             stateLabel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryLight));
             //Toast.makeText(GetHoldingsActivity.this, "State Completed: " + intent.getStringExtra(OclcIntentService.BROADCAST_RESPONSE_STRING), Toast.LENGTH_LONG).show();
 
+            // When the the last state is completed.
             if (Objects.equals(processedState, "WY")) {
-                //status.setText(R.string.finished);
+                // Hide the status
                 status.setVisibility(View.INVISIBLE);
+                // Reveal the Continue Processing button
                 processButton.setVisibility(View.VISIBLE);
-            }
+            } // end if.
+
         } //end method onReceive.
 
     } //end class OclcIntentServiceReceiver.
@@ -196,12 +211,10 @@ public class GetHoldingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Launch GetHoldingsActivity.
+                // Launch ProcessListActivity.
 
                 // Create  intent for GetHoldingsActivity.
                 Intent intent = new Intent(GetHoldingsActivity.this, ProcessListActivity.class);
-                // send value of state to GetHoldingsActivity.
-                intent.putExtra("state", sourceState);
                 // Execute intent.
                 startActivity(intent);
 

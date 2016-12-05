@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="get_holdings_text_size">15sp</dimen>
-    <dimen name="get_holdings_margin">12dp</dimen>
+    <dimen name="get_holdings_margin_bottom">0dp</dimen>
+    <dimen name="get_holdings_margin_left">10dp</dimen>
     <dimen name="get_holdings_width">44dp</dimen>
     <dimen name="get_holdings_margin_top">5dp</dimen>
 </resources>

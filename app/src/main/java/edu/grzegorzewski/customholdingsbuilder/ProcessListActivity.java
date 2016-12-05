@@ -1,14 +1,15 @@
 package edu.grzegorzewski.customholdingsbuilder;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,25 +37,31 @@ public class ProcessListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process_list);
 
+        OclcDao oclcDao = new OclcDao(ProcessListActivity.this);
+        String dbState = oclcDao.getDBSourceState();
+
         //Intent passed in
-        Intent thisIntent = this.getIntent();
+        //Intent thisIntent = this.getIntent();
 
-        final String state = thisIntent.getStringExtra("state");
+        //final String state = thisIntent.getStringExtra("state");
 
-        StateZoneList stateZone = new StateZoneList(state);
+        SharedPreferences stateSetting = PreferenceManager.getDefaultSharedPreferences(ProcessListActivity.this);
+        final String sourceState = stateSetting.getString("sourceState", dbState);
 
-        // TODO descripton.
+        StateZoneList stateZone = new StateZoneList(sourceState);
+
+        // TODO descripton.// this is unused.
         List<Pair> stateZoneList = stateZone.getStateZones();
 
         ListView listView = (ListView) findViewById(R.id.list_view_holdings);
-        listView.setAdapter(createArrayAdapter(state));
+        listView.setAdapter(createArrayAdapter(sourceState));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String value = parent.getItemAtPosition(position).toString();
-                String splitValue[] = value.split(" ");
-                List<String> symbols = getSymbolsList(state, splitValue[0]);
+                String customHoldingsList = parent.getItemAtPosition(position).toString();
+                String splitValue[] = customHoldingsList.split(" ");
+                List<String> symbols = getSymbolsList(sourceState, splitValue[0]);
                 StringBuilder symbolsStringBuilder = new StringBuilder();
                 for (String symbol : symbols) {
                     symbolsStringBuilder.append(symbol)
@@ -64,6 +71,7 @@ public class ProcessListActivity extends AppCompatActivity {
                 Intent displayListActivityIntent = new Intent(ProcessListActivity.this, DisplayListActivity.class);
                 // send value of state to GetHoldingsActivity.
                 displayListActivityIntent.putExtra("symbols", symbolsStringBuilder.toString());
+                displayListActivityIntent.putExtra("customHoldingsList", customHoldingsList);
                 // Execute intent.
                 startActivity(displayListActivityIntent);
             }
@@ -119,7 +127,7 @@ public class ProcessListActivity extends AppCompatActivity {
         stateZoneSummaries.addAll(getARFreeZoneSummaries(sourceState));
         stateZoneSummaries.addAll(getARPayZoneSummaries(sourceState));
 
-        return new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stateZoneSummaries);
+        return new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stateZoneSummaries);
     }
 
     private List<String> getBookFreeZoneSummaries(String sourceState) {
