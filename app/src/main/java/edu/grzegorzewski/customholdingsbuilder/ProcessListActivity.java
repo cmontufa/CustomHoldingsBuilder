@@ -1,5 +1,12 @@
 package edu.grzegorzewski.customholdingsbuilder;
 
+/* ITMD-555 Android App Development
+ * Dennis Grzegorzewski
+ * Christopher Montufar
+ * Final Project
+ * Due: 12/05/2016
+ */
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,7 +31,7 @@ import edu.grzegorzewski.customholdingsbuilder.domain.Institution;
 /**
  * TODO
  *
- * @author Dennis Grzegorzewski.
+ * @author Christopher Montufar.
  * @version 1.0, 12/01/2016
  */
 public class ProcessListActivity extends AppCompatActivity {
@@ -56,7 +63,6 @@ public class ProcessListActivity extends AppCompatActivity {
 
         StateZoneList stateZone = new StateZoneList(sourceState);
 
-        // TODO descripton.// this is unused.
         List<Pair> stateZoneList = stateZone.getStateZones();
 
         ListView listView = (ListView) findViewById(R.id.list_view_holdings);

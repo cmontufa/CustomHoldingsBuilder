@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!-- ITMD-555 Android App Development --><!-- Dennis Grzegorzewski --><!-- Christopher Montufar --><!-- Final Project --><!-- Due: 12/05/2016 -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ITMD-555 Android App Development -->
+<!-- Dennis Grzegorzewski -->
+<!-- Christopher Montufar -->
+<!-- Final Project -->
+<!-- Due: 12/05/2016 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.grzegorzewski.customholdingsbuilder">
 

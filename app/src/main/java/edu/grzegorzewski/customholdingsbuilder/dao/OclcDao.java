@@ -274,7 +274,7 @@ public class OclcDao extends SQLiteOpenHelper {
     }
 
     /**
-     * TODO Method description.
+     * Return all records from the database in a linked list.
      *
      * @param query TODO description.
      * @return - TODO description.
@@ -321,7 +321,7 @@ public class OclcDao extends SQLiteOpenHelper {
     } // end method getAllInstitutionsBySearchParams.
 
     /**
-     * TODO Method description.
+     * Updates Institution record in database.
      *
      * @param institution TODO description.
      * @return - TODO description.
