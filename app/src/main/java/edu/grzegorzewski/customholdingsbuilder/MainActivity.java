@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Executes when activity starts.
      *
-     * @see #setupContinueButton() TODO Description.
-     * @see #setupCreateNewButton() TODO Description.
+     * @see #setupContinueButton() Sets up the Continue Button.
+     * @see #setupCreateNewButton() Sets up the Create New Button.
      * @param savedInstanceState - the saved activity state.
      * @since 1.0
      */
@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Sets up the Create New Button.
      *
-     * @see #createPreviousHoldingsDialog() TODO Description.
-     * @see #startGetLocationActivity() TODO Description.
+     * @see #createPreviousHoldingsDialog() Create warning dialog about overwriting previous custom holdings.
+     * @see #startGetLocationActivity() Launch GetLocationActivity.
      * @since 1.0
      */
     private void setupCreateNewButton() {
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Sets up the Continue Button.
      *
-     * @see #createNoPreviousHoldingsDialog() TODO Description.
-     * @see #startGetHoldingsActivity() TODO Description.
+     * @see #createNoPreviousHoldingsDialog() Create a warning dialog for creating new custom holdings.
+     * @see #startGetHoldingsActivity() Launch GetHoldingsActivity.
      * @since 1.0
      */
     private void setupContinueButton() {
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch GetLocationActivity.
      *
-     * @see GetLocationActivity TODO Description.
+     * @see GetLocationActivity Gets state location from user.
      * @since 1.0
      */
     void startGetLocationActivity() {
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch GetHoldingsActivity.
      *
-     * @see GetHoldingsActivity TODO Description.
+     * @see GetHoldingsActivity displays state progress screen as it downloads holdings data
      * @since 1.0
      */
     void startGetHoldingsActivity() {
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
      * Called when previous holding exist.
      * On OK button calls startGetLocationActivity().
      *
-     * @see #startGetLocationActivity() TODO Description.
+     * @see #startGetLocationActivity() Launch GetLocationActivity.
      * @since 1.0
      */
     void createPreviousHoldingsDialog() {
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
      * Called when no previous holding exist for continuing.
      * On OK button calls startGetLocationActivity().
      *
-     * @see #startGetLocationActivity() TODO Description.
+     * @see #startGetLocationActivity() Launch GetLocationActivity.
      * @since 1.0
      */
     void createNoPreviousHoldingsDialog() {

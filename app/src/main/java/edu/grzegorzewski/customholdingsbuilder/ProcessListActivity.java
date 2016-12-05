@@ -21,6 +21,12 @@ import java.util.regex.Pattern;
 import edu.grzegorzewski.customholdingsbuilder.dao.OclcDao;
 import edu.grzegorzewski.customholdingsbuilder.domain.Institution;
 
+/**
+ * TODO
+ *
+ * @author Dennis Grzegorzewski.
+ * @version 1.0, 12/01/2016
+ */
 public class ProcessListActivity extends AppCompatActivity {
 
     private OclcDao oclcDao = new OclcDao(this);

@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+/**
+ * TODO
+ *
+ * @author Dennis Grzegorzewski.
+ * @version 1.0, 12/01/2016
+ */
 public class DisplayListActivity extends AppCompatActivity {
 
     private static final String INTENT_PARAM_SYMBOLS = "symbols";
