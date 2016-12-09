@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ITMD-555 Android App Development -->
+<!-- Dennis Grzegorzewski -->
+<!-- Christopher Montufar -->
+<!-- Final Project -->
+<!-- Due: 12/05/2016 -->
+<resources>
+
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+</resources>

@@ -1,3 +1,8 @@
+<!-- ITMD-555 Android App Development -->
+<!-- Dennis Grzegorzewski -->
+<!-- Christopher Montufar -->
+<!-- Final Project -->
+<!-- Due: 12/05/2016 -->
 <resources>
 
     <!-- Base application theme. -->
@@ -6,6 +11,28 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- For the resting Spinner style -->
+        <item name="android:spinnerItemStyle">
+            @style/spinnerItemStyle
+        </item>
+
+        <!-- For each individual Spinner list item once clicked on -->
+        <item name="android:spinnerDropDownItemStyle">
+            @style/spinnerDropDownItemStyle
+        </item>
+    </style>
+
+    <style name="spinnerItemStyle">
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">25sp</item>
+
+    </style>
+
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
 </resources>
